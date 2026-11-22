@@ -632,8 +632,8 @@ body.headless-mode .viewport-shell {
   user-select: none;
 }
 .bleed-bottom-left {
-  left: -28px;
-  bottom: -78px;
+  left: 18px;
+  bottom: -16px;
 }
 
 .editorial-side-note {
@@ -739,15 +739,19 @@ body.headless-mode .viewport-shell {
   width: 800px;
   height: 1080px;
 }
+.slide-frame:not([data-archetype^="cover-"]) .portal-portal-right {
+  top: 90px;
+  height: 990px;
+}
 .portal-portal-right .portal-img {
   object-position: right center;
 }
 
 .portal-vertical-slit {
   right: 132px;
-  top: 0;
+  top: 90px;
   width: 348px;
-  height: 1080px;
+  height: 990px;
 }
 .portal-vertical-slit .portal-img {
   object-position: 82% center;
@@ -779,7 +783,7 @@ body.headless-mode .viewport-shell {
 .overlap-paper-note {
   position: absolute;
   z-index: 12;
-  width: 448px;
+  width: 416px;
   padding: 26px 32px;
   background: var(--overlap-bg);
   color: var(--overlap-fg);
@@ -788,8 +792,8 @@ body.headless-mode .viewport-shell {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .overlap-paper-note.pos-bottom-right {
-  right: 204px;
-  bottom: 74px;
+  right: 136px;
+  bottom: 56px;
 }
 .overlap-paper-note.pos-bottom-left {
   left: 136px;
@@ -1230,7 +1234,7 @@ body.headless-mode .viewport-shell {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 420px;
+  padding-right: 440px;
 }
 .hm-giant-figure {
   font-family: Georgia, var(--font-display);
@@ -1247,6 +1251,14 @@ body.headless-mode .viewport-shell {
   font-style: italic;
   margin-left: 8px;
 }
+.hm-metric-label {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
 .hm-delta-kicker {
   margin-top: 16px;
   font-family: var(--font-mono);
@@ -1260,13 +1272,20 @@ body.headless-mode .viewport-shell {
   height: 1.5px;
   background: var(--accent);
   opacity: 0.55;
-  margin: 38px 0 34px;
+  margin: 34px 0 30px;
 }
 .hm-bottom-grid {
   display: grid;
   grid-template-columns: 1.35fr 0.85fr;
   gap: 52px;
   align-items: start;
+}
+.hm-bottom-grid.has-two-stats {
+  grid-template-columns: 1.25fr 0.88fr 0.88fr;
+  gap: 36px;
+}
+.hm-bottom-grid.has-two-stats .plinth-metric {
+  font-size: calc(38px * var(--slide-font-scale));
 }
 .hm-statement-title {
   font-family: var(--font-display);
@@ -1319,12 +1338,20 @@ body.headless-mode .viewport-shell {
   background: linear-gradient(180deg, rgba(6,8,14,0.22) 0%, rgba(6,8,14,0.9) 76%);
 }
 .collage-hero-content { position: relative; z-index: 2; }
+.collage-hero-tile .eyebrow {
+  display: inline-block;
+  color: #7DD3FC;
+  margin-bottom: 12px;
+}
+.collage-hero-tile .hl-accent {
+  color: #7DD3FC;
+}
 .collage-hero-metric {
   font-family: var(--font-display);
   font-size: 66px;
   font-weight: 800;
   line-height: 1;
-  color: var(--accent);
+  color: #F8FAFC;
   margin-bottom: 14px;
 }
 .collage-hero-title {
@@ -1343,6 +1370,7 @@ body.headless-mode .viewport-shell {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 8px 0;
   gap: 10px;
 }
 
@@ -1717,6 +1745,9 @@ body.headless-mode .viewport-shell {
   justify-content: center;
   padding-right: 420px;
 }
+.quote-eyebrow {
+  margin-bottom: 18px;
+}
 .quote-mark-svg {
   font-family: Georgia, serif;
   font-size: 116px;
@@ -1739,6 +1770,13 @@ body.headless-mode .viewport-shell {
   color: var(--accent);
 }
 .quote-role { font-size: 17px; color: var(--text-muted); }
+.quote-source {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 14.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
 
 /* 22. Code Architecture */
 .code-arch-grid {
@@ -2186,6 +2224,7 @@ body.headless-mode .laser-dot {
           <div class="hm-top-zone">
             <div class="eyebrow" data-pptx-text="1" data-pptx-role="eyebrow">卷叁 // 空间尺度与留白配比</div>
             <div class="hm-giant-figure" data-pptx-text="1" data-pptx-role="metric" data-parallax="fg">72<em class="hm-unit">%</em></div>
+            <div class="hm-metric-label" data-pptx-text="1" data-pptx-role="subtitle">全院水⁠面⁠、素墙与天⁠空无遮挡留⁠白面⁠积占⁠比</div>
             <div class="hm-delta-kicker" data-pptx-text="1" data-pptx-role="eyebrow">SONG DYNASTY MINIMALIST VOID RATIO</div>
           </div>
 
@@ -2320,6 +2359,7 @@ body.headless-mode .laser-dot {
   </header>
       <div class="slide-body">
         <div class="layout-quote-v2">
+          
           <div class="quote-mark-svg" data-pptx-decor-quote="1" aria-hidden="true">“</div>
           <blockquote class="manifesto-quote-text" style="font-size:38px" data-pptx-text="1" data-pptx-role="title" data-parallax="fg">虽由人⁠作⁠，<span class="hl-accent" data-hl="1" style="white-space:nowrap">宛自天⁠开</span>。造⁠物之至⁠高境⁠界⁠，终⁠究⁠是让人忘⁠却一⁠切设⁠计伎⁠俩⁠，只觉万⁠物本该如⁠此静⁠美⁠生⁠长⁠。</blockquote>
           <div class="cover-v2-offgrid-line" data-pptx-rule="1"></div>
@@ -2327,6 +2367,7 @@ body.headless-mode .laser-dot {
             <span class="quote-author" data-pptx-text="1" data-pptx-role="subtitle">— 计成《园冶》</span>
             <span class="quote-role" data-pptx-text="1" data-pptx-role="caption">明代造园宗师 · 东方空间美学圭臬</span>
           </div>
+          
         </div>
       </div>
       

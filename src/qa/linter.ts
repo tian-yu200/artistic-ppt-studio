@@ -117,10 +117,70 @@ export async function lintAndAutoHealDeck(
   // 3. Anti-Boxification 密度审计 + Anti-AI-Slop 文本净化与节拍器审计
   let consecutiveSameArchetype = 1;
   let multiCellCount = 0;
+  const mediaUsageCounts = new Map<string, number>();
 
   deck.slides.forEach((slide, idx) => {
     if (MULTI_CELL_ARCHETYPES.has(slide.archetype)) {
       multiCellCount++;
+    }
+
+    const mediaSrc = slide.media?.src || slide.items?.[0]?.media?.src;
+    if (mediaSrc) {
+      mediaUsageCounts.set(mediaSrc, (mediaUsageCounts.get(mediaSrc) || 0) + 1);
+    }
+
+    if (slide.quadrant?.points) {
+      slide.quadrant.points.forEach((pt) => {
+        if (pt.size !== undefined && (pt.size < 4 || pt.size > 10)) {
+          pt.size = Math.max(4, Math.min(10, pt.size));
+          issues.push({
+            level: 'healed',
+            slideIndex: idx,
+            code: 'QUADRANT_SIZE_CLAMPED',
+            message: `第 ${idx + 1} 页象限点 "${pt.label}" 的 size 超出推荐范围 [4,10]，已自动钳制为 ${pt.size}。`,
+          });
+        }
+      });
+    }
+
+    if (slide.items) {
+      slide.items.forEach((it) => {
+        if (it.span !== undefined) {
+          delete it.span;
+          issues.push({
+            level: 'healed',
+            slideIndex: idx,
+            code: 'DEPRECATED_SPAN_STRIPPED',
+            message: `第 ${idx + 1} 页 items["${it.title}"] 包含已废弃无效字段 span，已自动清理。`,
+          });
+        }
+      });
+    }
+
+    if (slide.archetype === 'bento-asymmetric-4' && (slide.items?.length || 0) < 4) {
+      issues.push({
+        level: 'warning',
+        slideIndex: idx,
+        code: 'BENTO_INCOMPLETE_ITEMS',
+        message: `第 ${idx + 1} 页 bento-asymmetric-4 仅提供 ${slide.items?.length || 0} 个 items（标准为 4 项），可能导致右侧留白失衡。`,
+      });
+    }
+
+    if (slide.chart && slide.chart.callout) {
+      const combinedChartText = `${slide.title || ''} ${slide.chart.callout}`;
+      if (
+        /\bPV\b/.test(combinedChartText) &&
+        /\bEV\b/.test(combinedChartText) &&
+        /\bAC\b/.test(combinedChartText) &&
+        slide.chart.series.length < 3
+      ) {
+        issues.push({
+          level: 'warning',
+          slideIndex: idx,
+          code: 'CHART_SERIES_MISMATCH',
+          message: `第 ${idx + 1} 页标题或 Callout 同时论述了 PV/EV/AC 三维指标，但 chart.series 仅包含 ${slide.chart.series.length} 条序列。`,
+        });
+      }
     }
 
     if (idx > 0 && slide.archetype === deck.slides[idx - 1].archetype) {
@@ -170,6 +230,16 @@ export async function lintAndAutoHealDeck(
       });
     }
   });
+
+  for (const [src, count] of mediaUsageCounts.entries()) {
+    if (count >= 3) {
+      issues.push({
+        level: 'warning',
+        code: 'REPEATED_MEDIA_ASSET',
+        message: `配图 "${src}" 在整套讲稿中重复出现 ${count} 次（超过 2 次上限），违反单套讲稿多幕递进不撞图原则。`,
+      });
+    }
+  }
 
   if (deck.slides.length >= 5 && multiCellCount / deck.slides.length > 0.45) {
     issues.push({
@@ -335,6 +405,42 @@ export async function lintAndAutoHealDeck(
                 }
               }
             }
+
+            // 检测架构拓扑图节点文字是否溢出其父卡片 <rect data-node-card="1">
+            slideEl.querySelectorAll('[data-diagram-node="1"]').forEach((nodeG, ni) => {
+              const cardEl = nodeG.querySelector('[data-node-card="1"]');
+              if (!cardEl) return;
+              const cr = cardEl.getBoundingClientRect();
+              nodeG.querySelectorAll('text').forEach((tEl) => {
+                const tr = tEl.getBoundingClientRect();
+                if (tr.width < 2 || tr.height < 2) return;
+                const txt = (tEl.textContent || '').trim().slice(0, 18);
+                if (
+                  tr.bottom > cr.bottom + 2.5 ||
+                  tr.top < cr.top - 2.5 ||
+                  tr.right > cr.right + 4 ||
+                  tr.left < cr.left - 4
+                ) {
+                  collisionPairs.push(`DiagramNode#${ni + 1}CardOverflow("${txt}")`);
+                }
+              });
+            });
+
+            // 检测架构拓扑图连线标签胶囊 <rect data-diagram-pill="1"> 是否与任何节点卡片碰撞重叠
+            const diagCards = Array.from(slideEl.querySelectorAll('[data-node-card="1"]')).map((el) =>
+              el.getBoundingClientRect()
+            );
+            slideEl.querySelectorAll('[data-diagram-pill="1"]').forEach((pillEl) => {
+              const pr = pillEl.getBoundingClientRect();
+              const pillTxt = pillEl.getAttribute('data-pill-text') || 'pill';
+              diagCards.forEach((cr, ci) => {
+                const ow = Math.min(pr.right, cr.right) - Math.max(pr.left, cr.left);
+                const oh = Math.min(pr.bottom, cr.bottom) - Math.max(pr.top, cr.top);
+                if (ow > 3 && oh > 3) {
+                  collisionPairs.push(`DiagramPill("${pillTxt}") <-> [NodeCard#${ci + 1}]`);
+                }
+              });
+            });
 
             return { overflowCount, reasons, collisionPairs };
           },

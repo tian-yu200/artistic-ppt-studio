@@ -117,6 +117,7 @@ export interface SlideItem {
   metric?: string;
   metric_label?: string;
   icon?: string;
+  /** @deprecated 已废弃无效字段（Linter 将自动剥离并告警） */
   span?: '1x1' | '2x1' | '1x2' | '2x2';
   accent?: boolean;
   morph_id?: string;
@@ -145,6 +146,7 @@ export interface QuadrantPoint {
   label: string;
   x: number;
   y: number;
+  /** 散点半径权重，推荐范围 4~10（默认 6，超出 4~10 将被 Linter 自动钳制收敛） */
   size?: number;
   highlight?: boolean;
   category?: string;

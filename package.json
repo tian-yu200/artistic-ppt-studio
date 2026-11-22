@@ -1,6 +1,6 @@
 {
   "name": "artistic-ppt-studio",
-  "version": "1.0.0",
+  "version": "3.1.0",
   "description": "Model-agnostic, agent-ready artistic presentation engine compiling semantic SlideDeck IR into zero-dependency Web Cinema HTML and hybrid native-editable Morph PPTX.",
   "type": "module",
   "bin": {

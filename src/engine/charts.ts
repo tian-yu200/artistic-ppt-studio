@@ -405,7 +405,8 @@ export function renderQuadrantSvg(quad: QuadrantSpec, style: StylePack): string 
   const pointCoords = quad.points.map((pt, idx) => {
     const px = padX + 30 + (pt.x / 100) * (boxW - 60);
     const py = H - padBot - 30 - (pt.y / 100) * (boxH - 60);
-    const r = (pt.size || 6) * 2.1;
+    const clampedSize = Math.max(4, Math.min(10, pt.size ?? 6));
+    const r = clampedSize * 2.0;
     // 将散点圆球登记为刚性碰撞障碍物
     occupied.push({ x1: px - r - 2, y1: py - r - 2, x2: px + r + 2, y2: py + r + 2 });
     return { pt, idx, px, py, r };
@@ -561,13 +562,31 @@ export function renderQuadrantSvg(quad: QuadrantSpec, style: StylePack): string 
       const outBot = Math.max(0, cand.box.y2 - (H - padBot - 8));
       const boundaryPenalty = (outLeft + outRight + outTop + outBot) * 500;
 
+      let axisPenalty = 0;
+      if (cand.box.x1 < cx + 8 && cand.box.x2 > cx - 8) {
+        const overlapW = Math.max(0, Math.min(cand.box.x2, cx + 8) - Math.max(cand.box.x1, cx - 8));
+        axisPenalty += 450 + overlapW * 25;
+      }
+      if (cand.box.y1 < cy + 8 && cand.box.y2 > cy - 8) {
+        const overlapH = Math.max(0, Math.min(cand.box.y2, cy + 8) - Math.max(cand.box.y1, cy - 8));
+        axisPenalty += 450 + overlapH * 25;
+      }
+      const boxCx = (cand.box.x1 + cand.box.x2) / 2;
+      const boxCy = (cand.box.y1 + cand.box.y2) / 2;
+      if (Math.abs(px - cx) > 2 && (px - cx) * (boxCx - cx) < 0) {
+        axisPenalty += 300;
+      }
+      if (Math.abs(py - cy) > 2 && (py - cy) * (boxCy - cy) < 0) {
+        axisPenalty += 300;
+      }
+
       let collisionArea = 0;
       for (const ob of occupied) {
         collisionArea += boxOverlapArea(cand.box, ob, 5);
       }
 
-      const totalPenalty = boundaryPenalty + collisionArea * 10 + cand.ringIdx * 0.5;
-      if (boundaryPenalty === 0 && collisionArea === 0) {
+      const totalPenalty = boundaryPenalty + axisPenalty + collisionArea * 10 + cand.ringIdx * 0.5;
+      if (boundaryPenalty === 0 && axisPenalty === 0 && collisionArea === 0) {
         chosen = cand;
         bestPenalty = 0;
         break;
@@ -713,8 +732,8 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
 
   if (diagram.layout === 'pipeline') {
     const n = Math.max(diagram.nodes.length, 1);
-    const gap = 54;
-    const totalW = W - 80;
+    const gap = n >= 5 ? 38 : 54;
+    const totalW = W - (n >= 5 ? 48 : 80);
     const nodeW = Math.min(350, (totalW - (n - 1) * gap) / n);
     const startX = (W - (n * nodeW + (n - 1) * gap)) / 2;
     diagram.nodes.forEach((node, idx) => {
@@ -749,13 +768,14 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
     });
     const sortedKeys = Array.from(layers.keys()).sort((a, b) => a - b);
     const lCount = Math.max(sortedKeys.length, 1);
-    const rowGap = 58;
-    const nodeH = Math.min(126, (H - 48 - (lCount - 1) * rowGap) / lCount);
+    const rowGap = lCount >= 4 ? 38 : 54;
+    const nodeH = Math.min(126, (H - 32 - (lCount - 1) * rowGap) / lCount);
     const startY = (H - (lCount * nodeH + (lCount - 1) * rowGap)) / 2;
 
     sortedKeys.forEach((lk, li) => {
-      const bandY = startY + li * (nodeH + rowGap) - 12;
-      const bandH = nodeH + 24;
+      const bandPad = lCount >= 4 ? 7 : 12;
+      const bandY = startY + li * (nodeH + rowGap) - bandPad;
+      const bandH = nodeH + bandPad * 2;
       const laneTitle = `LAYER 0${li + 1}`;
       swimlanesSvg += `
         <g data-diagram-lane="1" data-lane-title="${laneTitle}">
@@ -773,9 +793,10 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
       `;
 
       const rowNodes = layers.get(lk)!;
-      const colGap = 44;
+      const colGap = rowNodes.length === 2 ? 148 : 48;
       const availW = W - 260;
-      const nodeW = Math.min(440, (availW - (rowNodes.length - 1) * colGap) / rowNodes.length);
+      const maxNodeW = rowNodes.length === 2 ? 410 : 440;
+      const nodeW = Math.min(maxNodeW, (availW - (rowNodes.length - 1) * colGap) / rowNodes.length);
       const startX =
         160 + (availW - (rowNodes.length * nodeW + (rowNodes.length - 1) * colGap)) / 2;
       rowNodes.forEach((node, ni) => {
@@ -799,6 +820,14 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
   let edgeLinesSvg = '';
   let edgeLabelsSvg = '';
 
+  const cardBoxes: Box2D[] = Array.from(coords.values()).map((c) => ({
+    x1: c.x,
+    y1: c.y,
+    x2: c.x + c.w,
+    y2: c.y + c.h,
+  }));
+  const placedPillBoxes: Box2D[] = [];
+
   edges.forEach((e) => {
     const a = coords.get(e.from);
     const b = coords.get(e.to);
@@ -807,64 +836,177 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
     const ay = a.y + a.h / 2;
     const bx = b.x + b.w / 2;
     const by = b.y + b.h / 2;
+
+    const isSameRow = Math.abs(by - ay) < 16 && Math.abs(bx - ax) > 20;
+    const isLoopbackOrJump =
+      diagram.layout === 'layered' &&
+      !isSameRow &&
+      (by < ay - 10 || Math.abs(by - ay) > (a.h + 65) * 1.45);
+
     let x1 = ax,
       y1 = ay,
       x2 = bx,
-      y2 = by;
+      y2 = by,
+      cx1 = ax,
+      cy1 = ay,
+      cx2 = bx,
+      cy2 = by,
+      pillX = (ax + bx) / 2,
+      pillY = (ay + by) / 2;
 
-    if (diagram.layout !== 'layered' && Math.abs(bx - ax) > Math.abs(by - ay) * 1.35) {
+    if (isLoopbackOrJump) {
+      x1 = a.x + a.w;
+      y1 = ay;
+      x2 = b.x + b.w + 4;
+      y2 = by;
+      const maxCardRight = Math.max(...cardBoxes.map((cb) => cb.x2), x1, x2);
+      const outerX = Math.min(W - 68, maxCardRight + 86);
+      const midChannelY = Math.round((y1 + y2) / 2);
+      const seg1Cy2 = Math.round(y1 + (y2 - y1) * 0.16);
+      const seg2Cy1 = Math.round(y2 - (y2 - y1) * 0.16);
+
+      const pathD1 = `M ${x1} ${y1} C ${outerX} ${y1}, ${outerX} ${seg1Cy2}, ${outerX} ${midChannelY}`;
+      const pathD2 = `M ${outerX} ${midChannelY} C ${outerX} ${seg2Cy1}, ${outerX} ${y2}, ${x2} ${y2}`;
+
+      edgeLinesSvg += `<path data-diagram-edge="1" data-no-arrow="1" data-x1="${x1}" data-y1="${y1}" data-cx1="${outerX}" data-cy1="${y1}" data-cx2="${outerX}" data-cy2="${seg1Cy2}" data-x2="${outerX}" data-y2="${midChannelY}" data-dashed="${
+        e.dashed ? '1' : '0'
+      }" d="${pathD1}" fill="none" stroke="${p.accent}" style="stroke:var(--accent)" stroke-opacity="0.74" stroke-width="2.2" ${
+        e.dashed ? 'stroke-dasharray="6 5"' : ''
+      }/>`;
+      edgeLinesSvg += `<path data-diagram-edge="1" data-x1="${outerX}" data-y1="${midChannelY}" data-cx1="${outerX}" data-cy1="${seg2Cy1}" data-cx2="${outerX}" data-cy2="${y2}" data-x2="${x2}" data-y2="${y2}" data-dashed="${
+        e.dashed ? '1' : '0'
+      }" d="${pathD2}" fill="none" stroke="${p.accent}" style="stroke:var(--accent)" stroke-opacity="0.74" stroke-width="2.2" ${
+        e.dashed ? 'stroke-dasharray="6 5"' : ''
+      } marker-end="url(#diag-arrow)"/>`;
+
+      pillX = outerX;
+      pillY = midChannelY;
+    } else if (
+      isSameRow ||
+      (diagram.layout !== 'layered' && Math.abs(bx - ax) > Math.abs(by - ay) * 1.35)
+    ) {
       x1 = bx > ax ? a.x + a.w : a.x;
       x2 = bx > ax ? b.x - 4 : b.x + b.w + 4;
+      y1 = ay;
+      y2 = by;
+      const midX = (x1 + x2) / 2;
+      const midY = (y1 + y2) / 2;
+      cx1 = midX;
+      cy1 = y1;
+      cx2 = midX;
+      cy2 = y2;
+      pillX = midX;
+      pillY = diagram.layout === 'pipeline' ? Math.min(a.y, b.y) - 26 : midY;
+      const pathD = `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
+      edgeLinesSvg += `<path data-diagram-edge="1" data-x1="${x1}" data-y1="${y1}" data-cx1="${cx1}" data-cy1="${cy1}" data-cx2="${cx2}" data-cy2="${cy2}" data-x2="${x2}" data-y2="${y2}" data-dashed="${
+        e.dashed ? '1' : '0'
+      }" d="${pathD}" fill="none" stroke="${p.accent}" style="stroke:var(--accent)" stroke-opacity="0.74" stroke-width="2.2" ${
+        e.dashed ? 'stroke-dasharray="6 5"' : ''
+      } marker-end="url(#diag-arrow)"/>`;
     } else {
       const dxSign = Math.abs(bx - ax) < 20 ? 0 : bx < ax ? -1 : 1;
       x1 = ax + dxSign * Math.min(56, a.w * 0.16);
       x2 = bx - dxSign * Math.min(56, b.w * 0.16);
       y1 = by > ay ? a.y + a.h : a.y;
       y2 = by > ay ? b.y - 4 : b.y + b.h + 4;
+      const midX = (x1 + x2) / 2;
+      const midY = (y1 + y2) / 2;
+      cx1 = x1;
+      cy1 = midY;
+      cx2 = x2;
+      cy2 = midY;
+      pillX = midX;
+      pillY = midY;
+      const pathD = `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
+      edgeLinesSvg += `<path data-diagram-edge="1" data-x1="${x1}" data-y1="${y1}" data-cx1="${cx1}" data-cy1="${cy1}" data-cx2="${cx2}" data-cy2="${cy2}" data-x2="${x2}" data-y2="${y2}" data-dashed="${
+        e.dashed ? '1' : '0'
+      }" d="${pathD}" fill="none" stroke="${p.accent}" style="stroke:var(--accent)" stroke-opacity="0.74" stroke-width="2.2" ${
+        e.dashed ? 'stroke-dasharray="6 5"' : ''
+      } marker-end="url(#diag-arrow)"/>`;
     }
-
-    const midX = (x1 + x2) / 2;
-    const midY = (y1 + y2) / 2;
-    const isHoriz =
-      diagram.layout !== 'layered' && Math.abs(x2 - x1) > Math.abs(y2 - y1) * 1.35;
-    const cx1 = isHoriz ? midX : x1;
-    const cy1 = isHoriz ? y1 : midY;
-    const cx2 = isHoriz ? midX : x2;
-    const cy2 = isHoriz ? y2 : midY;
-    const pathD = `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
-
-    edgeLinesSvg += `<path data-diagram-edge="1" data-x1="${x1}" data-y1="${y1}" data-cx1="${cx1}" data-cy1="${cy1}" data-cx2="${cx2}" data-cy2="${cy2}" data-x2="${x2}" data-y2="${y2}" data-dashed="${
-      e.dashed ? '1' : '0'
-    }" d="${pathD}" fill="none" stroke="${p.accent}" style="stroke:var(--accent)" stroke-opacity="0.74" stroke-width="2.2" ${
-      e.dashed ? 'stroke-dasharray="6 5"' : ''
-    } marker-end="url(#diag-arrow)"/>`;
 
     if (e.label) {
       const pillW = Math.round(estimateCjkUnits(e.label) * 13.5 + 24);
       const pillH = 24;
       const isPipe = diagram.layout === 'pipeline';
-      const labelY = isPipe ? Math.min(a.y, b.y) - 26 : midY;
+      if (!isPipe && isSameRow && Math.abs(x2 - x1) < pillW + 16) {
+        pillY = Math.min(a.y, b.y) - 18;
+      }
+
+      const dyOffsets = [0, -19, 19, -36, 36, -54, 54, -71, 71, -86, 86];
+      const dxOffsets = isLoopbackOrJump
+        ? [0, 28, 56, -28, -56, 84, -84]
+        : [0, -32, 32, -64, 64, -96, 96];
+      let bestX = pillX;
+      let bestY = pillY;
+      let bestScore = Infinity;
+
+      for (const dy of dyOffsets) {
+        for (const dx of dxOffsets) {
+          const cxCand = Math.max(pillW / 2 + 16, Math.min(W - pillW / 2 - 16, pillX + dx));
+          const cyCand = Math.max(pillH / 2 + 10, Math.min(H - pillH / 2 - 10, pillY + dy));
+          const candBox: Box2D = {
+            x1: cxCand - pillW / 2,
+            y1: cyCand - pillH / 2,
+            x2: cxCand + pillW / 2,
+            y2: cyCand + pillH / 2,
+          };
+          let cardOverlap = 0;
+          for (const cb of cardBoxes) {
+            cardOverlap += boxOverlapArea(candBox, cb, 4);
+          }
+          let pillOverlap = 0;
+          for (const pb of placedPillBoxes) {
+            pillOverlap += boxOverlapArea(candBox, pb, 4);
+          }
+          const distPenalty = Math.hypot(dx, dy) * 0.1;
+          const score = cardOverlap * 100 + pillOverlap * 20 + distPenalty;
+          if (cardOverlap === 0 && pillOverlap === 0 && dx === 0 && dy === 0) {
+            bestX = cxCand;
+            bestY = cyCand;
+            bestScore = 0;
+            break;
+          }
+          if (score < bestScore) {
+            bestScore = score;
+            bestX = cxCand;
+            bestY = cyCand;
+          }
+        }
+        if (bestScore === 0) break;
+      }
+
+      pillX = Math.round(bestX);
+      pillY = Math.round(bestY);
+      placedPillBoxes.push({
+        x1: pillX - pillW / 2,
+        y1: pillY - pillH / 2,
+        x2: pillX + pillW / 2,
+        y2: pillY + pillH / 2,
+      });
+
+      const edgeMidY = (y1 + y2) / 2;
       edgeLabelsSvg += `
         <g>
           ${
             isPipe
-              ? `<line data-diagram-leader="1" data-x1="${midX}" data-y1="${
-                  labelY + pillH / 2
-                }" data-x2="${midX}" data-y2="${midY - 4}" x1="${midX}" y1="${
-                  labelY + pillH / 2
-                }" x2="${midX}" y2="${midY - 4}" stroke="${
+              ? `<line data-diagram-leader="1" data-x1="${pillX}" data-y1="${
+                  pillY + pillH / 2
+                }" data-x2="${pillX}" data-y2="${edgeMidY - 4}" x1="${pillX}" y1="${
+                  pillY + pillH / 2
+                }" x2="${pillX}" y2="${edgeMidY - 4}" stroke="${
                   p.accent
                 }" style="stroke:var(--accent)" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="3 3"/>`
               : ''
           }
           <rect data-diagram-pill="1" data-pill-text="${escapeHtml(e.label)}" x="${
-        midX - pillW / 2
-      }" y="${labelY - pillH / 2}" width="${pillW}" height="${pillH}" rx="12" fill="${
+        pillX - pillW / 2
+      }" y="${pillY - pillH / 2}" width="${pillW}" height="${pillH}" rx="12" fill="${
         p.bg_primary
       }" style="fill:var(--bg-primary);stroke:var(--border-solid)" stroke="${
         p.border_solid
       }" stroke-width="1.2"/>
-          <text x="${midX}" y="${labelY + 4.5}" text-anchor="middle" fill="${
+          <text x="${pillX}" y="${pillY + 4.5}" text-anchor="middle" fill="${
         p.text_primary
       }" style="fill:var(--text-primary)" font-family="${fontMono}" font-size="12.5" font-weight="600">${escapeHtml(
         e.label
@@ -886,6 +1028,21 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
       diagram.layout === 'pipeline' ? `STAGE 0${idx + 1}` : `MOD // 0${idx + 1}`;
 
     if (diagram.layout === 'pipeline') {
+      const padX = box.w < 305 ? 16 : 22;
+      const availTitleW = Math.max(80, box.w - padX * 2 - 4);
+      const titleUnits = Math.max(1, estimateCjkUnits(node.label));
+      const pipeTitleFs = Math.max(
+        13.5,
+        Math.min(20, Number((availTitleW / (titleUnits * 1.05)).toFixed(1)))
+      );
+      const subPadX = box.w < 305 ? 24 : 32;
+      const availSubW = Math.max(70, box.w - subPadX * 2 - 4);
+      const subUnits = Math.max(1, estimateCjkUnits(node.sublabel || ''));
+      const pipeSubFs = Math.max(
+        10.5,
+        Math.min(13.5, Number((availSubW / (subUnits * 1.05)).toFixed(1)))
+      );
+
       nodesSvg += `
         <g data-diagram-node="1">
           <rect data-node-card="1" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" rx="6" fill="${cardBg}" style="fill:var(--surface-solid);stroke:${cssBorder}" stroke="${borderCol}" stroke-width="${
@@ -894,7 +1051,7 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
           <rect data-node-bar="1" x="${box.x}" y="${box.y}" width="${box.w}" height="4" fill="${
         isAcc ? p.accent : p.text_muted
       }" style="fill:${isAcc ? 'var(--accent)' : 'var(--text-muted)'}"/>
-          <text data-node-tag="1" x="${box.x + 22}" y="${box.y + 34}" fill="${
+          <text data-node-tag="1" x="${box.x + padX}" y="${box.y + 34}" fill="${
         isAcc ? p.accent : p.text_muted
       }" style="fill:${
         isAcc ? 'var(--accent)' : 'var(--text-muted)'
@@ -902,26 +1059,26 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
           <circle data-node-dot="1" cx="${box.x + box.w - 24}" cy="${box.y + 29}" r="4.5" fill="${
         isAcc ? p.accent : p.border_solid
       }" style="fill:${isAcc ? 'var(--accent)' : 'var(--border-solid)'}"/>
-          <line data-node-divider="1" x1="${box.x + 22}" y1="${box.y + 48}" x2="${box.x + box.w - 22}" y2="${
+          <line data-node-divider="1" x1="${box.x + padX}" y1="${box.y + 48}" x2="${box.x + box.w - padX}" y2="${
         box.y + 48
       }" stroke="${withAlpha(p.text_primary, 0.08)}" style="stroke:var(--border-color)" stroke-width="1"/>
-          <text data-node-title="1" x="${box.x + 22}" y="${box.y + 98}" fill="${
+          <text data-node-title="1" x="${box.x + padX}" y="${box.y + 98}" fill="${
         p.text_primary
-      }" style="fill:var(--text-primary)" font-family="${fontBody}" font-size="20" font-weight="700">${escapeHtml(
+      }" style="fill:var(--text-primary)" font-family="${fontBody}" font-size="${pipeTitleFs}" font-weight="700">${escapeHtml(
         node.label
       )}</text>
           ${
             node.sublabel
-              ? `<rect data-node-sub-bg="1" x="${box.x + 20}" y="${box.y + box.h - 66}" width="${
-                  box.w - 40
+              ? `<rect data-node-sub-bg="1" x="${box.x + padX - 2}" y="${box.y + box.h - 66}" width="${
+                  box.w - (padX - 2) * 2
                 }" height="44" rx="4" fill="${p.accent}" style="fill:var(--accent)" fill-opacity="${
                   isAcc ? '0.1' : '0.05'
                 }"/>
-                 <text data-node-sub="1" x="${box.x + 32}" y="${box.y + box.h - 39}" fill="${
+                 <text data-node-sub="1" x="${box.x + subPadX}" y="${box.y + box.h - 39}" fill="${
                   isAcc ? p.accent : p.text_secondary
                 }" style="fill:${
                   isAcc ? 'var(--accent)' : 'var(--text-secondary)'
-                }" font-family="${fontMono}" font-size="13.5" font-weight="600">${escapeHtml(
+                }" font-family="${fontMono}" font-size="${pipeSubFs}" font-weight="600">${escapeHtml(
                   node.sublabel
                 )}</text>`
               : ''
@@ -929,6 +1086,43 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
         </g>
       `;
     } else {
+      const isCompactCard = box.h < 110;
+      const availCardTextW = Math.max(80, box.w - 40);
+      const titleUnits = Math.max(1, estimateCjkUnits(node.label));
+      const subUnits = Math.max(1, estimateCjkUnits(node.sublabel || ''));
+      const tagFontSize = isCompactCard ? 10.5 : 11.5;
+      const titleFontSize = Math.max(
+        13.5,
+        Math.min(
+          isCompactCard ? 17.5 : 19,
+          Number((availCardTextW / (titleUnits * 1.05)).toFixed(1))
+        )
+      );
+      const subFontSize = Math.max(
+        10.5,
+        Math.min(
+          isCompactCard ? 12 : 13.5,
+          Number((availCardTextW / (subUnits * 1.05)).toFixed(1))
+        )
+      );
+      const tagY = Math.round(box.y + (isCompactCard ? Math.max(20, box.h * 0.23) : 28));
+      const titleY = Math.round(
+        box.y +
+          (node.sublabel
+            ? isCompactCard
+              ? Math.max(46, box.h * 0.53)
+              : 62
+            : isCompactCard
+            ? Math.max(54, box.h * 0.62)
+            : 74)
+      );
+      const subY = Math.round(
+        box.y +
+          (isCompactCard
+            ? Math.min(box.h - 12, Math.max(68, box.h * 0.82))
+            : Math.min(box.h - 14, 92))
+      );
+
       nodesSvg += `
         <g data-diagram-node="1">
           <rect data-node-card="1" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" rx="6" fill="${cardBg}" style="fill:var(--surface-solid);stroke:${cssBorder}" stroke="${borderCol}" stroke-width="${
@@ -937,21 +1131,21 @@ export function renderDiagramSvg(diagram: DiagramSpec, style: StylePack): string
           <rect data-node-bar="1" x="${box.x}" y="${box.y}" width="5" height="${box.h}" fill="${
         isAcc ? p.accent : p.text_muted
       }" style="fill:${isAcc ? 'var(--accent)' : 'var(--text-muted)'}"/>
-          <text data-node-tag="1" x="${box.x + 22}" y="${box.y + 28}" fill="${
+          <text data-node-tag="1" x="${box.x + 22}" y="${tagY}" fill="${
         isAcc ? p.accent : p.text_muted
       }" style="fill:${
         isAcc ? 'var(--accent)' : 'var(--text-muted)'
-      }" font-family="${fontMono}" font-size="11.5" font-weight="700" letter-spacing="1.2">${modCode}</text>
-          <text data-node-title="1" x="${box.x + 22}" y="${box.y + (node.sublabel ? 64 : 74)}" fill="${
+      }" font-family="${fontMono}" font-size="${tagFontSize}" font-weight="700" letter-spacing="1.2">${modCode}</text>
+          <text data-node-title="1" x="${box.x + 22}" y="${titleY}" fill="${
         p.text_primary
-      }" style="fill:var(--text-primary)" font-family="${fontBody}" font-size="19" font-weight="700">${escapeHtml(
+      }" style="fill:var(--text-primary)" font-family="${fontBody}" font-size="${titleFontSize}" font-weight="700">${escapeHtml(
         node.label
       )}</text>
           ${
             node.sublabel
-              ? `<text data-node-sub="1" x="${box.x + 22}" y="${box.y + 94}" fill="${
+              ? `<text data-node-sub="1" x="${box.x + 22}" y="${subY}" fill="${
                   p.text_secondary
-                }" style="fill:var(--text-secondary)" font-family="${fontMono}" font-size="13.5">${escapeHtml(
+                }" style="fill:var(--text-secondary)" font-family="${fontMono}" font-size="${subFontSize}">${escapeHtml(
                   node.sublabel
                 )}</text>`
               : ''

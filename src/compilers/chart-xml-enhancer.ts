@@ -165,11 +165,79 @@ function enhanceLineSeriesBlock(
   return serXml;
 }
 
+function extractSeriesValues(serXml: string): number[] {
+  const valBlock = serXml.match(/<c:val\b[^>]*>[\s\S]*?<\/c:val>/)?.[0] || '';
+  const matches = valBlock.match(/<c:v>\s*([+-]?\d+(?:\.\d+)?)\s*<\/c:v>/g) || [];
+  return matches.map((m) => Number(m.replace(/<\/?c:v>/g, '').trim()));
+}
+
+function resolveLineSeriesLabelPositions(seriesXmlList: string[]): Array<'t' | 'b'> {
+  const count = seriesXmlList.length;
+  if (count < 2) {
+    return seriesXmlList.map(() => 't');
+  }
+
+  const valuesList = seriesXmlList.map(extractSeriesValues);
+  const means = valuesList.map((vals) =>
+    vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
+  );
+
+  if (count === 2) {
+    const [valsA, valsB] = valuesList;
+    const minLen = Math.min(valsA.length, valsB.length);
+    let closestIdx = -1;
+    let minGap = Number.POSITIVE_INFINITY;
+    for (let i = 0; i < minLen; i++) {
+      const gap = Math.abs(valsA[i] - valsB[i]);
+      if (gap < minGap) {
+        minGap = gap;
+        closestIdx = i;
+      }
+    }
+
+    if (closestIdx >= 0 && valsA[closestIdx] !== valsB[closestIdx]) {
+      return valsA[closestIdx] > valsB[closestIdx] ? ['t', 'b'] : ['b', 't'];
+    }
+    return means[0] >= means[1] ? ['t', 'b'] : ['b', 't'];
+  }
+
+  // 多于 2 条折线时：按序列均值降序排序，上半区置顶 't'，下半区置底 'b'
+  const rankedIndices = means
+    .map((mean, idx) => ({ mean, idx }))
+    .sort((a, b) => b.mean - a.mean || a.idx - b.idx);
+  const positions = new Array<'t' | 'b'>(count).fill('t');
+  const topQuota = Math.ceil(count / 2);
+  rankedIndices.forEach((item, rank) => {
+    positions[item.idx] = rank < topQuota ? 't' : 'b';
+  });
+  return positions;
+}
+
+function applySeriesLabelPosition(serXml: string, pos: 't' | 'b'): string {
+  return serXml.replace(/<c:dLbls\b[^>]*>[\s\S]*?<\/c:dLbls>/, (dLblsXml) => {
+    if (/<c:dLblPos\b[^>]*\/>/.test(dLblsXml)) {
+      return dLblsXml.replace(/<c:dLblPos\b[^>]*\/>/, `<c:dLblPos val="${pos}"/>`);
+    }
+    if (/<c:(?:showLegendKey|showVal|showCatName|showSerName|showPercent|showBubbleSize)\b/.test(dLblsXml)) {
+      return dLblsXml.replace(
+        /<c:(?:showLegendKey|showVal|showCatName|showSerName|showPercent|showBubbleSize)\b/,
+        (m) => `<c:dLblPos val="${pos}"/>${m}`
+      );
+    }
+    return dLblsXml;
+  });
+}
+
 function enhanceLineChartBlocks(chartXml: string, meta: ChartEnhancementMeta): string {
   return chartXml.replace(/<c:lineChart\b[^>]*>[\s\S]*?<\/c:lineChart>/g, (lineBlock) => {
+    const serMatches = lineBlock.match(/<c:ser\b[^>]*>[\s\S]*?<\/c:ser>/g) || [];
+    const labelPositions = resolveLineSeriesLabelPositions(serMatches);
     let idxCounter = 0;
     return lineBlock.replace(/<c:ser\b[^>]*>[\s\S]*?<\/c:ser>/g, (serXml) => {
-      const enhanced = enhanceLineSeriesBlock(serXml, idxCounter, meta);
+      let enhanced = enhanceLineSeriesBlock(serXml, idxCounter, meta);
+      if (serMatches.length >= 2) {
+        enhanced = applySeriesLabelPosition(enhanced, labelPositions[idxCounter] ?? 't');
+      }
       idxCounter++;
       return enhanced;
     });

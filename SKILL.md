@@ -23,7 +23,7 @@ description: 殿堂级艺术演示文稿（PPTX / Web Keynote）v3.0 跨模型�
 ---
 
 ### Step 2：编排多幕递进的“60%+ 负空间”艺术真图 (`18 Built-in Artworks`)
-1. **单套幻灯片内部严禁“一图到底”**：请从内置 18 张高定真图中为封面、中段深潜与尾声交替搭配同色系递进图像：
+1. **单套幻灯片内部严禁“一图到底”（单张 `media.src` 在同一套讲稿中严禁出现 3 次及以上，Linter 强制审计 `REPEATED_MEDIA_ASSET`）**：请从内置 18 张高定真图中为封面、中段深潜与尾声交替搭配同色系递进图像：
    - 科技暗场：`art://silicon-photonic-macro`、`art://apple-titanium-cavity`、`art://monolith-chiaroscuro`、`art://cyber-stage-laser`、`art://neo-brutal-chrome`
    - 杂志/人文：`art://travertine-linen-sculpture`、`art://vogue-spiral-stair`、`art://warm-humanist-craft`
    - 东方水墨：`art://oriental-ink-cliff`、`art://oriental-water-pavilion`
@@ -38,7 +38,7 @@ description: 殿堂级艺术演示文稿（PPTX / Web Keynote）v3.0 跨模型�
 2. **装饰原语克制使用**：无需也严禁在每一页硬塞无意义数字水印；高密图表/表格/架构页会自动屏蔽巨字水印以避免三层文字打架；`side_note` 仅使用简短英文大写期刊铭牌。
 3. **跨界切口与原生结构**：
    - `editorial-magazine` 采用**建筑切口衬板 (Architectural Cutout Cartouche)** 横跨左画窗与右纸面，明暗双端恒定 15:1 对比度；
-   - `chart-spotlight` 在导出 `.pptx` 时自动生成 **PowerPoint 原生可编辑 Excel 图表 (`pSlide.addChart`)**；
+   - `chart-spotlight` 在导出 `.pptx` 时自动生成 **PowerPoint 原生可编辑 Excel 图表 (`pSlide.addChart`)**；`chart.series` 必须完整覆盖 `title` 与 `callout` 中提及的所有核心指标序列（如论述挣值管理 PV/EV/AC 时必须完整绘制 3 条序列，Linter 审计 `CHART_SERIES_MISMATCH`），且工程量纲与算术口径必须前后自洽；
    - `architecture-flow` 必须为每个节点填写具体工程参数 `sublabel`（如张量维度、产能指标），导出 `.pptx` 时自动生成原生可编辑卡片与文本；
    - `academic-paper-2col` 的公式自动拆分为独立高清透明 Alpha 图层插入 `.pptx`，改字绝不穿帮。
 

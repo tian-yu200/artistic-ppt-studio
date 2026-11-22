@@ -633,8 +633,8 @@ body.headless-mode .viewport-shell {
   user-select: none;
 }
 .bleed-bottom-left {
-  left: -28px;
-  bottom: -78px;
+  left: 18px;
+  bottom: -16px;
 }
 
 .editorial-side-note {
@@ -740,15 +740,19 @@ body.headless-mode .viewport-shell {
   width: 800px;
   height: 1080px;
 }
+.slide-frame:not([data-archetype^="cover-"]) .portal-portal-right {
+  top: 90px;
+  height: 990px;
+}
 .portal-portal-right .portal-img {
   object-position: right center;
 }
 
 .portal-vertical-slit {
   right: 132px;
-  top: 0;
+  top: 90px;
   width: 348px;
-  height: 1080px;
+  height: 990px;
 }
 .portal-vertical-slit .portal-img {
   object-position: 82% center;
@@ -780,7 +784,7 @@ body.headless-mode .viewport-shell {
 .overlap-paper-note {
   position: absolute;
   z-index: 12;
-  width: 448px;
+  width: 416px;
   padding: 26px 32px;
   background: var(--overlap-bg);
   color: var(--overlap-fg);
@@ -789,8 +793,8 @@ body.headless-mode .viewport-shell {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .overlap-paper-note.pos-bottom-right {
-  right: 204px;
-  bottom: 74px;
+  right: 136px;
+  bottom: 56px;
 }
 .overlap-paper-note.pos-bottom-left {
   left: 136px;
@@ -1231,7 +1235,7 @@ body.headless-mode .viewport-shell {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 420px;
+  padding-right: 440px;
 }
 .hm-giant-figure {
   font-family: Georgia, var(--font-display);
@@ -1248,6 +1252,14 @@ body.headless-mode .viewport-shell {
   font-style: italic;
   margin-left: 8px;
 }
+.hm-metric-label {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
 .hm-delta-kicker {
   margin-top: 16px;
   font-family: var(--font-mono);
@@ -1261,13 +1273,20 @@ body.headless-mode .viewport-shell {
   height: 1.5px;
   background: var(--accent);
   opacity: 0.55;
-  margin: 38px 0 34px;
+  margin: 34px 0 30px;
 }
 .hm-bottom-grid {
   display: grid;
   grid-template-columns: 1.35fr 0.85fr;
   gap: 52px;
   align-items: start;
+}
+.hm-bottom-grid.has-two-stats {
+  grid-template-columns: 1.25fr 0.88fr 0.88fr;
+  gap: 36px;
+}
+.hm-bottom-grid.has-two-stats .plinth-metric {
+  font-size: calc(38px * var(--slide-font-scale));
 }
 .hm-statement-title {
   font-family: var(--font-display);
@@ -1320,12 +1339,20 @@ body.headless-mode .viewport-shell {
   background: linear-gradient(180deg, rgba(6,8,14,0.22) 0%, rgba(6,8,14,0.9) 76%);
 }
 .collage-hero-content { position: relative; z-index: 2; }
+.collage-hero-tile .eyebrow {
+  display: inline-block;
+  color: #7DD3FC;
+  margin-bottom: 12px;
+}
+.collage-hero-tile .hl-accent {
+  color: #7DD3FC;
+}
 .collage-hero-metric {
   font-family: var(--font-display);
   font-size: 66px;
   font-weight: 800;
   line-height: 1;
-  color: var(--accent);
+  color: #F8FAFC;
   margin-bottom: 14px;
 }
 .collage-hero-title {
@@ -1344,6 +1371,7 @@ body.headless-mode .viewport-shell {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 8px 0;
   gap: 10px;
 }
 
@@ -1718,6 +1746,9 @@ body.headless-mode .viewport-shell {
   justify-content: center;
   padding-right: 420px;
 }
+.quote-eyebrow {
+  margin-bottom: 18px;
+}
 .quote-mark-svg {
   font-family: Georgia, serif;
   font-size: 116px;
@@ -1740,6 +1771,13 @@ body.headless-mode .viewport-shell {
   color: var(--accent);
 }
 .quote-role { font-size: 17px; color: var(--text-muted); }
+.quote-source {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 14.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
 
 /* 22. Code Architecture */
 .code-arch-grid {
@@ -2151,6 +2189,7 @@ body.headless-mode .laser-dot {
           <div class="hm-top-zone">
             <div class="eyebrow" data-pptx-text="1" data-pptx-role="eyebrow">02 // PRODUCTION-GRADE RELIABILITY</div>
             <div class="hm-giant-figure" data-pptx-text="1" data-pptx-role="metric" data-parallax="fg">99.94<em class="hm-unit">%</em></div>
+            <div class="hm-metric-label" data-pptx-text="1" data-pptx-role="subtitle">消⁠费电⁠子超细柔⁠性排⁠线百⁠万次连⁠续盲插⁠良⁠率</div>
             <div class="hm-delta-kicker" data-pptx-text="1" data-pptx-role="eyebrow">MILLION-CYCLE FPC BLIND INSERTION YIELD</div>
           </div>
 
@@ -2385,31 +2424,31 @@ body.headless-mode .laser-dot {
 
     
     
-      <circle cx="680.72" cy="139.92000000000002" r="29.900000000000002" fill="#4F46E5" style="fill:var(--accent)" fill-opacity="0.18"/>
-      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="1" data-color="#4F46E5" cx="680.72" cy="139.92000000000002" r="18.900000000000002" fill="#4F46E5" style="fill:var(--accent)" fill-opacity="1" stroke="#FFFFFF" stroke-width="2"/>
+      <circle cx="680.72" cy="139.92000000000002" r="29" fill="#4F46E5" style="fill:var(--accent)" fill-opacity="0.18"/>
+      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="1" data-color="#4F46E5" cx="680.72" cy="139.92000000000002" r="18" fill="#4F46E5" style="fill:var(--accent)" fill-opacity="1" stroke="#FFFFFF" stroke-width="2"/>
     
       
-      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#8B5CF6" cx="624.08" cy="313.68" r="12.600000000000001" fill="#8B5CF6" style="fill:var(--chart-4)" fill-opacity="0.78" stroke="#8B5CF6" stroke-width="2"/>
+      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#8B5CF6" cx="624.08" cy="313.68" r="12" fill="#8B5CF6" style="fill:var(--chart-4)" fill-opacity="0.78" stroke="#8B5CF6" stroke-width="2"/>
     
       
-      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#EC4899" cx="255.92" cy="161.64" r="14.700000000000001" fill="#EC4899" style="fill:var(--chart-3)" fill-opacity="0.78" stroke="#EC4899" stroke-width="2"/>
+      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#EC4899" cx="255.92" cy="161.64" r="14" fill="#EC4899" style="fill:var(--chart-3)" fill-opacity="0.78" stroke="#EC4899" stroke-width="2"/>
     
       
-      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#F59E0B" cx="482.48" cy="364.36" r="10.5" fill="#F59E0B" style="fill:var(--chart-6)" fill-opacity="0.78" stroke="#F59E0B" stroke-width="2"/>
+      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#F59E0B" cx="482.48" cy="364.36" r="10" fill="#F59E0B" style="fill:var(--chart-6)" fill-opacity="0.78" stroke="#F59E0B" stroke-width="2"/>
     
       
-      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#10B981" cx="284.24" cy="299.2" r="10.5" fill="#10B981" style="fill:var(--chart-5)" fill-opacity="0.78" stroke="#10B981" stroke-width="2"/>
+      <circle data-collision-obstacle="1" data-quad-point="1" data-hero="0" data-color="#10B981" cx="284.24" cy="299.2" r="10" fill="#10B981" style="fill:var(--chart-5)" fill-opacity="0.78" stroke="#10B981" stroke-width="2"/>
     
     
-      <text data-quad-label="1" data-hero="1" x="651.82" y="144.92000000000002" text-anchor="end" fill="#4F46E5" style="fill:var(--accent)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="15.5" font-weight="700">Verdant AI</text>
+      <text data-quad-label="1" data-hero="1" x="652.72" y="144.92000000000002" text-anchor="end" fill="#4F46E5" style="fill:var(--accent)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="15.5" font-weight="700">Verdant AI</text>
     
-      <text data-quad-label="1" data-hero="0" x="601.48" y="318.68" text-anchor="end" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Vision-Only VLA</text>
+      <text data-quad-label="1" data-hero="0" x="602.08" y="318.68" text-anchor="end" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Vision-Only VLA</text>
     
-      <text data-quad-label="1" data-hero="0" x="280.62" y="166.64" text-anchor="start" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Legacy PLC + Vision</text>
+      <text data-quad-label="1" data-hero="0" x="279.91999999999996" y="166.64" text-anchor="start" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Legacy PLC + Vision</text>
     
-      <text data-quad-label="1" data-hero="0" x="461.98" y="369.36" text-anchor="end" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Teleop Prototypes</text>
+      <text data-quad-label="1" data-hero="0" x="502.48" y="369.36" text-anchor="start" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">Teleop Prototypes</text>
     
-      <text data-quad-label="1" data-hero="0" x="304.74" y="304.2" text-anchor="start" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">System Integrators</text>
+      <text data-quad-label="1" data-hero="0" x="284.24" y="337.2" text-anchor="middle" fill="#0F172A" style="fill:var(--text-primary)" font-family="'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Segoe UI', sans-serif" font-size="14" font-weight="600">System Integrators</text>
     
   </svg>
             </div>

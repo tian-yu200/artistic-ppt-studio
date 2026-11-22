@@ -50,7 +50,15 @@ export interface PptxCompileResult {
 }
 
 type ExtractedInlinePart =
-  | { kind: 'text'; text: string; highlight: boolean; bold: boolean }
+  | {
+      kind: 'text';
+      text: string;
+      highlight: boolean;
+      bold: boolean;
+      italic?: boolean;
+      fontSizePx?: number;
+      colorCss?: string;
+    }
   | { kind: 'break' }
   | { kind: 'latex'; latex: string; highlight: boolean; bold: boolean };
 
@@ -1030,7 +1038,7 @@ export async function compileDeckToPptx(
               y2: p2.y,
               isCurve: true,
               dashed: edgeEl.getAttribute('data-dashed') === '1',
-              hasArrow: true,
+              hasArrow: edgeEl.getAttribute('data-no-arrow') !== '1',
             });
           });
 
@@ -1283,13 +1291,28 @@ export async function compileDeckToPptx(
           inhHighlight: boolean,
           inhBold: boolean,
           upperCase: boolean,
-          out: ExtractedInlinePart[]
+          out: ExtractedInlinePart[],
+          rootFontSizePx: number,
+          rootColorCss: string,
+          inhItalic = false,
+          inhFontSizePx?: number,
+          inhColorCss?: string
         ) {
           root.childNodes.forEach((node) => {
             if (node.nodeType === Node.TEXT_NODE) {
               let t = node.textContent || '';
               if (upperCase) t = t.toUpperCase();
-              if (t) out.push({ kind: 'text', text: t, highlight: inhHighlight, bold: inhBold });
+              if (t) {
+                out.push({
+                  kind: 'text',
+                  text: t,
+                  highlight: inhHighlight,
+                  bold: inhBold,
+                  italic: inhItalic || undefined,
+                  fontSizePx: inhFontSizePx,
+                  colorCss: inhColorCss,
+                });
+              }
             } else if (node.nodeType === Node.ELEMENT_NODE) {
               const ce = node as HTMLElement;
               if (ce.tagName === 'BR') {
@@ -1303,16 +1326,57 @@ export async function compileDeckToPptx(
                 }
                 return;
               }
-              const isHl =
-                inhHighlight || ce.classList.contains('hl-accent') || ce.getAttribute('data-hl') === '1';
               const ceStyle = window.getComputedStyle(ce);
+              const isHl =
+                inhHighlight ||
+                ce.classList.contains('hl-accent') ||
+                ce.classList.contains('hm-unit') ||
+                ce.getAttribute('data-hl') === '1';
+              const ceWeight = parseInt(ceStyle.fontWeight) || 400;
               const isBd =
-                inhBold ||
-                isHl ||
-                ce.tagName === 'STRONG' ||
-                ce.tagName === 'B' ||
-                parseInt(ceStyle.fontWeight) >= 600;
-              collectParts(ce, isHl, isBd, upperCase || ceStyle.textTransform === 'uppercase', out);
+                ce.classList.contains('hm-unit') || ce.classList.contains('plinth-metric-unit')
+                  ? ceWeight >= 600
+                  : inhBold ||
+                    ce.classList.contains('hl-accent') ||
+                    ce.tagName === 'STRONG' ||
+                    ce.tagName === 'B' ||
+                    ceWeight >= 600;
+              const isIt =
+                inhItalic ||
+                ce.tagName === 'EM' ||
+                ce.tagName === 'I' ||
+                ceStyle.fontStyle === 'italic';
+              const ceFs = parseFloat(ceStyle.fontSize);
+              const customFs =
+                Number.isFinite(ceFs) && Math.abs(ceFs - rootFontSizePx) > 2
+                  ? ceFs
+                  : inhFontSizePx;
+              const customColor =
+                ceStyle.color && ceStyle.color !== rootColorCss ? ceStyle.color : inhColorCss;
+
+              if (
+                ce.classList.contains('hm-unit') ||
+                ce.classList.contains('plinth-metric-unit') ||
+                (parseFloat(ceStyle.marginLeft) || 0) >= 4
+              ) {
+                const lastPart = out[out.length - 1];
+                if (lastPart && lastPart.kind === 'text' && !/\s$/.test(lastPart.text)) {
+                  lastPart.text += ' ';
+                }
+              }
+
+              collectParts(
+                ce,
+                isHl,
+                isBd,
+                upperCase || ceStyle.textTransform === 'uppercase',
+                out,
+                rootFontSizePx,
+                rootColorCss,
+                isIt,
+                customFs,
+                customColor
+              );
             }
           });
         }
@@ -1404,7 +1468,16 @@ export async function compileDeckToPptx(
               });
             }
           } else {
-            collectParts(el, false, fontWeight >= 600, isUpper, parts);
+            collectParts(
+              el,
+              false,
+              fontWeight >= 600,
+              isUpper,
+              parts,
+              fontSizePx,
+              cs.color,
+              cs.fontStyle === 'italic'
+            );
           }
 
           const hasContent =
@@ -2433,8 +2506,14 @@ export async function compileDeckToPptx(
                 textRuns.push({
                   text: np.text,
                   options: {
-                    color: np.highlight ? accentHex : baseHex,
-                    bold: allowBold && (np.bold || txt.fontWeight >= 600),
+                    fontSize: np.fontSizePx ? pxToPt(np.fontSizePx) : fontSizePt,
+                    color: np.highlight
+                      ? accentHex
+                      : np.colorCss
+                        ? toPptxHex(np.colorCss, baseHex)
+                        : baseHex,
+                    bold: allowBold && (np.bold || (!np.fontSizePx && txt.fontWeight >= 600)),
+                    italic: np.italic ? true : undefined,
                     lang: localeLang,
                     softBreakBefore: pendingBreak ? true : undefined,
                   },
@@ -2487,8 +2566,14 @@ export async function compileDeckToPptx(
               textRuns.push({
                 text: seg || (hasMore ? ' ' : ''),
                 options: {
-                  color: part.highlight ? accentHex : baseHex,
-                  bold: allowBold && (part.bold || txt.fontWeight >= 600),
+                  fontSize: part.fontSizePx ? pxToPt(part.fontSizePx) : fontSizePt,
+                  color: part.highlight
+                    ? accentHex
+                    : part.colorCss
+                      ? toPptxHex(part.colorCss, baseHex)
+                      : baseHex,
+                  bold: allowBold && (part.bold || (!part.fontSizePx && txt.fontWeight >= 600)),
+                  italic: part.italic ? true : undefined,
                   lang: localeLang,
                   breakLine: hasMore ? true : undefined,
                   softBreakBefore: si === 0 && pendingBreak ? true : undefined,

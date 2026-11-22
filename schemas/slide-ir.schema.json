@@ -153,7 +153,7 @@
                 "metric": { "type": "string" },
                 "metric_label": { "type": "string" },
                 "icon": { "type": "string" },
-                "span": { "type": "string", "enum": ["1x1", "2x1", "1x2", "2x2"] },
+                "span": { "type": "string", "enum": ["1x1", "2x1", "1x2", "2x2"], "deprecated": true, "description": "已废弃无效字段（Linter 将自动剥离并告警）" },
                 "accent": { "type": "boolean" },
                 "morph_id": { "type": "string" },
                 "formula": { "type": "string" },
@@ -218,7 +218,7 @@
                     "label": { "type": "string" },
                     "x": { "type": "number", "minimum": 0, "maximum": 100 },
                     "y": { "type": "number", "minimum": 0, "maximum": 100 },
-                    "size": { "type": "number" },
+                    "size": { "type": "number", "minimum": 1, "maximum": 24, "description": "散点半径权重，推荐范围 4~10（超出 4~10 将被 Linter 自动钳制收敛）" },
                     "highlight": { "type": "boolean" },
                     "category": { "type": "string" }
                   }

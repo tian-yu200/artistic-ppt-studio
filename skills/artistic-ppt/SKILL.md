@@ -10,7 +10,8 @@ description: Universal v3.0 artistic presentation compiler skill (100% offline W
 1. **Style Selection (`style_id`)**: Choose from 12 1-to-1 bespoke styles (`apple-keynote-dark`, `aurora-glass-light`, `linear-precision`, `editorial-vogue`, `swiss-grid-modern`, `oriental-ink-zen`, `config-neo-brutal`, `executive-consulting`, `nature-academic`, `stage-cyber-spotlight`, `warm-humanist`, `bauhaus-industrial`). Run `preview-styles --all` to render a visual comparison gallery.
 2. **Typography & Restraint Rules**:
    - Do NOT insert ASCII spaces between Chinese characters and `**bold**` markers (write `重建**可触摸的骨相**`).
-   - Alternate multiple `art://` visuals across slides within a deck; avoid repeating a single image 3+ times.
+   - Alternate multiple `art://` visuals across slides within a deck; a single `media.src` MUST NOT be used 3+ times in one deck (enforced by linter `REPEATED_MEDIA_ASSET`).
+   - In `chart-spotlight`, `chart.series` must plot every core metric series named in `title` / `callout` (e.g. PV, EV, AC must all be included; enforced by `CHART_SERIES_MISMATCH`), and engineering units/arithmetic must be self-consistent.
    - Use `vertical_title: true` on `oriental-ink-zen` covers for classical vertical scroll layout with vermilion seal.
 3. **Compile & Visual QA**:
    - Author JSON conforming to `references/ir-quick-reference.md` and `schemas/slide-ir.schema.json`.

@@ -11,6 +11,7 @@ import type {
   DeckMetadata,
   MediaAsset,
   OverlapNoteSpec,
+  QuoteSpec,
   SlideItem,
   SlideSpec,
   StylePack,
@@ -21,6 +22,7 @@ import {
   escapeHtml,
   renderLatexToHtml,
   renderRichHtml,
+  stripRichMarkers,
 } from '../utils/typography.js';
 import { renderArtisticIllustration, renderSlideAtmosphere } from './backgrounds.js';
 import { renderChartSvg, renderDiagramSvg, renderQuadrantSvg } from './charts.js';
@@ -547,14 +549,29 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
         value: '10×',
         label: slide.title || 'Breakthrough',
       };
+      const showDistinctMetricLabel = Boolean(
+        slide.title &&
+          hm.label &&
+          stripRichMarkers(slide.title).trim() !== stripRichMarkers(hm.label).trim()
+      );
       const sideItems = (slide.items || []).slice(0, 2);
+      const gridItems: SlideItem[] = slide.overlap_note
+        ? sideItems
+        : sideItems.length >= 2
+        ? [sideItems[0]]
+        : [];
+      const overlapSourceItem: SlideItem | undefined = slide.overlap_note
+        ? undefined
+        : sideItems.length >= 2
+        ? sideItems[1]
+        : sideItems[0];
       const autoOverlap: OverlapNoteSpec | undefined =
         slide.overlap_note ||
-        (sideItems[0]
+        (overlapSourceItem
           ? {
-              title: `${sideItems[0].metric ? sideItems[0].metric + ' · ' : ''}${sideItems[0].title}`,
-              body: sideItems[0].body || '',
-              morph_id: sideItems[0].morph_id || 'hero-overlap-note',
+              title: `${overlapSourceItem.metric ? overlapSourceItem.metric + ' · ' : ''}${overlapSourceItem.title}`,
+              body: overlapSourceItem.body || '',
+              morph_id: overlapSourceItem.morph_id || 'hero-overlap-note',
             }
           : undefined);
 
@@ -574,6 +591,13 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
         hm.unit ? `<em class="hm-unit">${escapeHtml(hm.unit)}</em>` : ''
       }</div>
             ${
+              showDistinctMetricLabel
+                ? `<div class="hm-metric-label" data-pptx-text="1" data-pptx-role="subtitle">${renderRichHtml(
+                    hm.label
+                  )}</div>`
+                : ''
+            }
+            ${
               hm.delta
                 ? `<div class="hm-delta-kicker" data-pptx-text="1" data-pptx-role="eyebrow">${escapeHtml(
                     hm.delta
@@ -584,7 +608,7 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
 
           <div class="hm-贯通-axis" data-pptx-rule="1"></div>
 
-          <div class="hm-bottom-grid">
+          <div class="hm-bottom-grid${gridItems.length >= 2 ? ' has-two-stats' : ''}">
             <div class="hm-main-desc">
               <h2 class="hm-statement-title" data-pptx-text="1" data-pptx-role="title">${renderRichHtml(
                 slide.title || hm.label
@@ -597,25 +621,25 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
                   : ''
               }
             </div>
-            ${
-              sideItems[1]
-                ? `<div class="hm-secondary-stat">
+            ${gridItems
+              .map(
+                (item) => `<div class="hm-secondary-stat">
                     <div class="plinth-metric" data-pptx-text="1" data-pptx-role="metric">${escapeHtml(
-                      sideItems[1].metric || ''
+                      item.metric || ''
                     )}</div>
                     <div class="plinth-title" data-pptx-text="1" data-pptx-role="subtitle">${renderRichHtml(
-                      sideItems[1].title
+                      item.title
                     )}</div>
                     ${
-                      sideItems[1].body
+                      item.body
                         ? `<p class="plinth-body" data-pptx-text="1" data-pptx-role="body">${renderRichHtml(
-                            sideItems[1].body
+                            item.body
                           )}</p>`
                         : ''
                     }
                   </div>`
-                : ''
-            }
+              )
+              .join('')}
           </div>
           ${!slide.overlap_note && autoOverlap ? renderOverlapNote(autoOverlap) : ''}
         </div>
@@ -1198,13 +1222,20 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
     // 21. 美术馆策展金句页
     case 'quote-manifesto': {
       portalUnderlay = renderArtPortal(slide.media, style, index + 8, 'vertical-slit');
-      const q = slide.quote || {
+      const q: QuoteSpec = slide.quote || {
         text: slide.title || '',
         author: slide.subtitle || '',
       };
       const quotePx = computeAdaptiveTitlePx(q.text, 'statement');
       bodyHtml = `
         <div class="layout-quote-v2">
+          ${
+            slide.eyebrow
+              ? `<div class="eyebrow quote-eyebrow" data-pptx-text="1" data-pptx-role="eyebrow"${morphAttr(
+                  slide.eyebrow_morph_id
+                )}>${escapeHtml(slide.eyebrow)}</div>`
+              : ''
+          }
           <div class="quote-mark-svg" data-pptx-decor-quote="1" aria-hidden="true">“</div>
           <blockquote class="manifesto-quote-text" style="font-size:${quotePx}px" data-pptx-text="1" data-pptx-role="title"${morphAttr(
         slide.title_morph_id
@@ -1222,6 +1253,13 @@ export function renderSlideHtml(ctx: RenderSlideContext): string {
                 : ''
             }
           </div>
+          ${
+            q.source
+              ? `<div class="quote-source" data-pptx-text="1" data-pptx-role="caption">${escapeHtml(
+                  q.source
+                )}</div>`
+              : ''
+          }
         </div>
       `;
       break;

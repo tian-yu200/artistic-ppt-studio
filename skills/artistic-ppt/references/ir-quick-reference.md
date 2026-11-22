@@ -20,6 +20,8 @@
   - `portal-right`：右侧 `800px` 通顶全出血艺术画幅
   - `vertical-slit`：右侧 `356px` 建筑垂直光隙切片
   - `pan-zoom-detail`：左半屏 `860px` 全高微距推镜特写暗窗
+- `quadrant.points[].size`：散点半径权重，取值范围必须为 `4~10`（默认 `6`；超出 `[4,10]` 将被 Linter 自动钳制收敛并触发 `QUADRANT_SIZE_CLAMPED`）。
+- `bento-asymmetric-4` 与 `items` 规范：`items[].span` 已废弃无效（Linter 自动剥离并触发 `DEPRECATED_SPAN_STRIPPED`）；`bento-asymmetric-4` 固定接收 4 项 `items`（少于 4 项触发 `BENTO_INCOMPLETE_ITEMS`），其中 `items[0]` 为左侧跨行主卡（可挂载 `items[0].media`），`items[1..3]` 为右侧三张分项卡。
 
 ## 2. 多幕递进视差与原生可编辑图表片段示例
 ```json
