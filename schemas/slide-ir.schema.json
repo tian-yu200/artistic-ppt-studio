@@ -1,0 +1,377 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://artistic-ppt.local/schemas/slide-ir.schema.json",
+  "title": "SlideDeckIR",
+  "description": "Model-agnostic semantic intermediate representation v2.0 for avant-garde broken-grid & parallax presentations.",
+  "type": "object",
+  "required": ["version", "meta", "slides"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["1.0", "2.0", "3.0"]
+    },
+    "meta": {
+      "type": "object",
+      "required": ["title", "style_id"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" },
+        "author": { "type": "string" },
+        "date": { "type": "string" },
+        "brand_mark": { "type": "string" },
+        "style_id": {
+          "type": "string",
+          "enum": [
+            "apple-keynote-dark",
+            "aurora-glass-light",
+            "linear-precision",
+            "editorial-vogue",
+            "swiss-grid-modern",
+            "oriental-ink-zen",
+            "config-neo-brutal",
+            "executive-consulting",
+            "nature-academic",
+            "stage-cyber-spotlight",
+            "warm-humanist",
+            "bauhaus-industrial"
+          ]
+        },
+        "playbook_id": {
+          "type": "string",
+          "enum": [
+            "keynote-launch",
+            "vc-pitch-deck",
+            "executive-strategy",
+            "tech-architecture",
+            "academic-defense",
+            "brand-manifesto",
+            "masterclass-workshop",
+            "career-promotion"
+          ]
+        },
+        "locale": { "type": "string", "enum": ["zh-CN", "en-US"] },
+        "accent_override": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "show_slide_numbers": { "type": "boolean" }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "archetype"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "archetype": {
+            "type": "string",
+            "enum": [
+              "cover-cinematic",
+              "cover-editorial-split",
+              "cover-swiss-grid",
+              "section-chapter",
+              "statement-impact",
+              "hero-metric",
+              "bento-asymmetric-4",
+              "bento-showcase-5",
+              "split-media-50",
+              "split-golden-ratio",
+              "editorial-magazine",
+              "cards-3-staggered",
+              "focus-zoom-detail",
+              "process-timeline",
+              "architecture-flow",
+              "quadrant-matrix",
+              "comparison-versus",
+              "chart-spotlight",
+              "academic-paper-2col",
+              "three-line-table",
+              "quote-manifesto",
+              "code-architecture",
+              "roadmap-milestones",
+              "closing-beacon"
+            ]
+          },
+          "transition": {
+            "type": "string",
+            "enum": ["morph", "parallax", "portal", "fade", "zoom", "push"]
+          },
+          "background_variant": {
+            "type": "string",
+            "enum": ["default", "spotlight", "aurora", "minimal", "accent-wash", "inverted"]
+          },
+          "bleed_mark": { "type": "string" },
+          "side_note": { "type": "string" },
+          "vertical_title": { "type": "boolean" },
+          "seal_text": { "type": "string", "maxLength": 6 },
+          "overlap_note": {
+            "type": "object",
+            "required": ["title", "body"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "type": "string" },
+              "body": { "type": "string" },
+              "position": {
+                "type": "string",
+                "enum": ["bottom-right", "bottom-left", "top-right"]
+              },
+              "morph_id": { "type": "string" }
+            }
+          },
+          "eyebrow": { "type": "string" },
+          "eyebrow_morph_id": { "type": "string" },
+          "title": { "type": "string" },
+          "title_morph_id": { "type": "string" },
+          "subtitle": { "type": "string" },
+          "subtitle_morph_id": { "type": "string" },
+          "container_morph_id": { "type": "string" },
+          "hero_metric": {
+            "type": "object",
+            "required": ["value", "label"],
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "string" },
+              "unit": { "type": "string" },
+              "label": { "type": "string" },
+              "delta": { "type": "string" },
+              "description": { "type": "string" },
+              "morph_id": { "type": "string" }
+            }
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title"],
+              "additionalProperties": false,
+              "properties": {
+                "title": { "type": "string" },
+                "tag": { "type": "string" },
+                "body": { "type": "string" },
+                "metric": { "type": "string" },
+                "metric_label": { "type": "string" },
+                "icon": { "type": "string" },
+                "span": { "type": "string", "enum": ["1x1", "2x1", "1x2", "2x2"] },
+                "accent": { "type": "boolean" },
+                "morph_id": { "type": "string" },
+                "formula": { "type": "string" },
+                "media": { "$ref": "#/definitions/mediaAsset" }
+              }
+            }
+          },
+          "media": { "$ref": "#/definitions/mediaAsset" },
+          "chart": {
+            "type": "object",
+            "required": ["type", "categories", "series"],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["bar", "grouped-bar", "area", "line", "donut", "horizontal-bar"]
+              },
+              "title": { "type": "string" },
+              "subtitle": { "type": "string" },
+              "unit": { "type": "string" },
+              "categories": { "type": "array", "items": { "type": "string" } },
+              "series": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["name", "values"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": { "type": "string" },
+                    "values": { "type": "array", "items": { "type": "number" } },
+                    "color": { "type": "string" }
+                  }
+                }
+              },
+              "highlight_index": { "type": "integer", "minimum": 0 },
+              "callout": { "type": "string" }
+            }
+          },
+          "quadrant": {
+            "type": "object",
+            "required": ["x_label_left", "x_label_right", "y_label_bottom", "y_label_top", "points"],
+            "additionalProperties": false,
+            "properties": {
+              "x_label_left": { "type": "string" },
+              "x_label_right": { "type": "string" },
+              "y_label_bottom": { "type": "string" },
+              "y_label_top": { "type": "string" },
+              "quadrant_labels": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "items": { "type": "string" }
+              },
+              "points": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "x", "y"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": { "type": "string" },
+                    "x": { "type": "number", "minimum": 0, "maximum": 100 },
+                    "y": { "type": "number", "minimum": 0, "maximum": 100 },
+                    "size": { "type": "number" },
+                    "highlight": { "type": "boolean" },
+                    "category": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "table": {
+            "type": "object",
+            "required": ["headers", "rows"],
+            "additionalProperties": false,
+            "properties": {
+              "caption": { "type": "string" },
+              "headers": { "type": "array", "items": { "type": "string" } },
+              "rows": {
+                "type": "array",
+                "items": { "type": "array", "items": { "type": "string" } }
+              },
+              "highlight_rows": { "type": "array", "items": { "type": "integer" } },
+              "align": {
+                "type": "array",
+                "items": { "type": "string", "enum": ["left", "center", "right"] }
+              },
+              "footnote": { "type": "string" }
+            }
+          },
+          "formula_block": {
+            "type": "object",
+            "required": ["latex"],
+            "additionalProperties": false,
+            "properties": {
+              "latex": { "type": "string" },
+              "equation_number": { "type": "string" },
+              "title": { "type": "string" },
+              "symbols": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["symbol", "meaning"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "symbol": { "type": "string" },
+                    "meaning": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "code_block": {
+            "type": "object",
+            "required": ["language", "code"],
+            "additionalProperties": false,
+            "properties": {
+              "language": { "type": "string" },
+              "code": { "type": "string" },
+              "caption": { "type": "string" },
+              "highlight_lines": { "type": "array", "items": { "type": "integer" } }
+            }
+          },
+          "diagram": {
+            "type": "object",
+            "required": ["layout", "nodes"],
+            "additionalProperties": false,
+            "properties": {
+              "layout": { "type": "string", "enum": ["layered", "pipeline", "hub-spoke"] },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "label"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": { "type": "string" },
+                    "label": { "type": "string" },
+                    "sublabel": { "type": "string" },
+                    "layer": { "type": "integer" },
+                    "accent": { "type": "boolean" },
+                    "icon": { "type": "string" },
+                    "morph_id": { "type": "string" }
+                  }
+                }
+              },
+              "edges": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["from", "to"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "from": { "type": "string" },
+                    "to": { "type": "string" },
+                    "label": { "type": "string" },
+                    "dashed": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          },
+          "quote": {
+            "type": "object",
+            "required": ["text", "author"],
+            "additionalProperties": false,
+            "properties": {
+              "text": { "type": "string" },
+              "author": { "type": "string" },
+              "role": { "type": "string" },
+              "source": { "type": "string" }
+            }
+          },
+          "footnote": { "type": "string" },
+          "custom_svg": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "mediaAsset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src": { "type": "string" },
+        "art_prompt_subject": { "type": "string" },
+        "motif": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "silicon-wafer",
+            "prism-refraction",
+            "editorial-sculpture",
+            "oriental-landscape",
+            "swiss-construct",
+            "neural-topology",
+            "orbital-rings",
+            "topographic-waves",
+            "bauhaus-blocks"
+          ]
+        },
+        "camera_mode": {
+          "type": "string",
+          "enum": [
+            "full-bleed-right-subject",
+            "pan-zoom-detail",
+            "portal-left",
+            "portal-right",
+            "vertical-slit",
+            "horizon-band"
+          ]
+        },
+        "caption": { "type": "string" },
+        "aspect": { "type": "string", "enum": ["16:9", "4:3", "3:4", "1:1", "auto"] },
+        "morph_id": { "type": "string" }
+      }
+    }
+  }
+}

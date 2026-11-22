@@ -1,0 +1,295 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "全球高能量密度储能供应链韧性重构战略",
+    "subtitle": "2026–2028 董事会专项战略审阅与区域产能投资组合决策",
+    "author": "集团战略规划部 & 全球运营委员会",
+    "date": "2026 Q4 BOARD REVIEW",
+    "brand_mark": "STRATEGIC ADVISORY // BOARD MANDATE",
+    "style_id": "executive-consulting",
+    "playbook_id": "executive-strategy",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "e1-cover",
+      "archetype": "cover-cinematic",
+      "eyebrow": "Executive Mandate // 2026–2028",
+      "title": "从“单一低成本外溢”转向**“区域闭环双源韧性网络”**",
+      "title_morph_id": "exec-anchor",
+      "subtitle": "应对欧美本地化碳足迹新规与关税临界点，重构 120GWh 储能系统全球产能组合，锁定未来三年 +4.2 个百分点稳态毛利溢价。",
+      "media": {
+        "src": "art://executive-cobalt-horizon",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "BOARD RESOLUTION  →  $310M PHASE-I ALLOCATION"
+      }
+    },
+    {
+      "id": "e2-summary",
+      "archetype": "cards-3-staggered",
+      "transition": "morph",
+      "eyebrow": "01 // EXECUTIVE SUMMARY",
+      "title": "三大战略研判：关税临界点已使**近岸本地化制造成为必选项**",
+      "title_morph_id": "exec-anchor",
+      "subtitle": "维持纯出口路径将在 2027 年吞噬 62% 的欧美电网级大储营业利润。",
+      "items": [
+        {
+          "tag": "REGULATORY CLIFF",
+          "title": "欧美合规窗口仅剩 14 个月",
+          "icon": "scale",
+          "metric": "-11.5 pct",
+          "body": "若不满足电池护照本土附加值门槛，综合税率将由 14% 跃升至 38.5%，直接丧失主流公用事业招投标资格。"
+        },
+        {
+          "tag": "OPTIMAL FOOTPRINT",
+          "title": "“研发母厂 + 区域黑灯总装”架构",
+          "icon": "compass",
+          "metric": "23.4% IRR",
+          "accent": true,
+          "body": "摒弃高风险全链条海外重资产建厂，采用高自动化本地 Pack 集成与绿电园区合资，降低 43% 初始资本开支。"
+        },
+        {
+          "tag": "WORKING CAPITAL",
+          "title": "数字孪生排产释放 $2.4 亿现金流",
+          "icon": "trending-up",
+          "metric": "-28 Days",
+          "body": "打通海运在途仓与区域保税缓冲池动态水位调度，端到端现金周转周期压缩近一个月。"
+        }
+      ]
+    },
+    {
+      "id": "e3-chart",
+      "archetype": "chart-spotlight",
+      "eyebrow": "02 // LANDED COST DIAGNOSIS",
+      "title": "2027 新规情景下，**摩洛哥与墨西哥双枢纽**具备显著到岸成本优势",
+      "items": [
+        {
+          "title": "关税对冲净成本节约",
+          "metric": "$19 /kWh",
+          "accent": true,
+          "body": "依托双边自贸协定原产地资质完全豁免惩罚性关税，抵消海外人工溢价后仍净省 $19/kWh。"
+        },
+        {
+          "title": "绿电直供碳税红利",
+          "metric": "-34% CO2",
+          "body": "100% 风光直供园区满足欧盟电池法最高等级碳足迹评级（< 42 kgCO2e/kWh）。"
+        }
+      ],
+      "chart": {
+        "type": "grouped-bar",
+        "unit": " $/kWh",
+        "callout": "切换至双枢纽近岸总装后，欧美综合到岸成本由 **$136/kWh** 降至 **$115~$117/kWh**",
+        "categories": [
+          "纯国内出口欧美",
+          "东欧独资全链建厂",
+          "摩洛哥自贸枢纽(推荐)",
+          "墨西哥近岸总装(推荐)"
+        ],
+        "series": [
+          {
+            "name": "制造与物流基础成本",
+            "values": [
+              98,
+              121,
+              108,
+              110
+            ]
+          },
+          {
+            "name": "含关税及碳税总到岸成本",
+            "values": [
+              136,
+              126,
+              115,
+              117
+            ]
+          }
+        ]
+      },
+      "footnote": "测算基准：5MWh 液冷磷酸铁锂集装箱系统，碳酸锂与海运价格按 2026Q4 远期曲线锁定。"
+    },
+    {
+      "id": "e4-table",
+      "archetype": "three-line-table",
+      "eyebrow": "03 // CAPITAL ALLOCATION MATRIX",
+      "title": "四大候选海外产能基地**全生命周期回报与地缘敏感度评估**",
+      "table": {
+        "caption": "表 1：30GWh 标准区域模组与集成基地投资组合对比（WACC = 8.5%）",
+        "headers": [
+          "候选基地选址",
+          "初始 CAPEX ($M)",
+          "达产周期",
+          "自贸关税豁免",
+          "税后项目 IRR",
+          "董事会决策建议"
+        ],
+        "align": [
+          "left",
+          "right",
+          "center",
+          "center",
+          "right",
+          "center"
+        ],
+        "highlight_rows": [
+          0,
+          1
+        ],
+        "rows": [
+          [
+            "摩洛哥丹吉尔绿电港 (Phase I)",
+            "$310M",
+            "14 个月",
+            "欧美双边 FTA 豁免",
+            "23.4%",
+            "**优先立项 (一号工程)**"
+          ],
+          [
+            "墨西哥新莱昂工业园 (Phase II)",
+            "$285M",
+            "12 个月",
+            "北美本地化合规",
+            "20.8%",
+            "**并行锁地 (二号工程)**"
+          ],
+          [
+            "匈牙利德布勒森独资园",
+            "$640M",
+            "28 个月",
+            "欧盟境内免税",
+            "12.1%",
+            "暂缓重资产电芯段"
+          ],
+          [
+            "东南亚传统转口组装仓",
+            "$140M",
+            "9 个月",
+            "面临反规避穿透核查",
+            "9.4%",
+            "逐步缩减存量敞口"
+          ]
+        ],
+        "footnote": "资料来源：集团战略财务模型 v8.2 及外部国际税法顾问尽调报告。"
+      }
+    },
+    {
+      "id": "e5-arch",
+      "archetype": "architecture-flow",
+      "eyebrow": "04 // DIGITAL TWIN OPERATING MODEL",
+      "title": "核心工艺留母厂、敏捷总装近市场的**三层解耦运营拓扑**",
+      "diagram": {
+        "layout": "layered",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "长三角零碳研发母厂与极片中心",
+            "sublabel": "LFP 高压实配方 · 干法电极母机 · BOM 占比 58%",
+            "layer": 0,
+            "accent": true
+          },
+          {
+            "id": "n2",
+            "label": "摩洛哥丹吉尔欧洲门户基地",
+            "sublabel": "40GWh 电芯精封 + 5MWh 液冷舱总装 (EU FTA)",
+            "layer": 1,
+            "accent": true
+          },
+          {
+            "id": "n3",
+            "label": "墨西哥蒙特雷北美近岸基地",
+            "sublabel": "35GWh 黑灯 Pack 产线 + 本地 BMS 集成 (USMCA)",
+            "layer": 1,
+            "accent": true
+          },
+          {
+            "id": "n4",
+            "label": "鹿特丹 / 休斯顿电网运维与循环中心",
+            "sublabel": "48h 备件响应 · 电池护照云端溯源 · 锂镍闭环再生",
+            "layer": 2
+          }
+        ],
+        "edges": [
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "预制产线与核心主材直航"
+          },
+          {
+            "from": "n1",
+            "to": "n3",
+            "label": "数字孪生工艺包 OTA 同步"
+          },
+          {
+            "from": "n2",
+            "to": "n4",
+            "label": "欧盟零碳合规并网"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "label": "北美电网级大储交付"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e6-timeline",
+      "archetype": "process-timeline",
+      "eyebrow": "05 // PMO EXECUTION ROADMAP",
+      "title": "2027 四个季度**关键里程碑与跨部门问责路径**",
+      "items": [
+        {
+          "tag": "2027 Q1",
+          "title": "合资交割与 15 年绿电 PPA",
+          "metric": "100% 绿电",
+          "accent": true,
+          "body": "完成丹吉尔港土地交割及 $0.038/kWh 风光直供长协签署。"
+        },
+        {
+          "tag": "2027 Q2",
+          "title": "母厂预制黑灯产线整柜发运",
+          "metric": "-40% 工期",
+          "body": "国内完成全线联调预验收后模块化海运，规避海外基建延期风险。"
+        },
+        {
+          "tag": "2027 Q3",
+          "title": "首批本土合规系统并网交付",
+          "metric": "15 GWh",
+          "body": "取得欧盟碳足迹认证并交付英国、德国首批独立储能标杆项目。"
+        },
+        {
+          "tag": "2027 Q4",
+          "title": "双枢纽达产兑现利润增量",
+          "metric": "+$380M",
+          "body": "海外高毛利订单占比跃升至 55%，全年 EBITDA 增量全面兑现。"
+        }
+      ]
+    },
+    {
+      "id": "e7-close",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "eyebrow": "BOARD RESOLUTION // DECISION REQUIRED",
+      "title": "提请董事会批准**首期 $3.1 亿美元丹吉尔绿电枢纽资本开支**",
+      "subtitle": "以确定性的全球化制造纵深，构筑穿越贸易周期的结构性壁垒。",
+      "media": {
+        "src": "art://executive-green-port",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "LEAD SPONSOR",
+          "tag": "LEAD SPONSOR",
+          "body": "集团首席运营官 (COO) & 战略副总裁"
+        },
+        {
+          "title": "GATE REVIEW",
+          "tag": "GATE REVIEW",
+          "body": "2027 Q1 审计与风险委员会里程碑复核"
+        }
+      ]
+    }
+  ]
+}

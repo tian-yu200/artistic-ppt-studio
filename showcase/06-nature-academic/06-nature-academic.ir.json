@@ -1,0 +1,300 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "NeuroSym-World: 物理守恒约束下的神经符号连续时空世界模型",
+    "subtitle": "Hamiltonian-Constrained Neuro-Symbolic World Models for Long-Horizon Physical Reasoning",
+    "author": "林知远, 陈沐阳, Prof. H. Vance · 清华大学交叉信息院 & MIT CSAIL",
+    "date": "NATURE MACHINE INTELLIGENCE // ORAL 2026",
+    "brand_mark": "NATURE MACHINE INTELLIGENCE // ORAL",
+    "style_id": "nature-academic",
+    "playbook_id": "academic-defense",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "a1-cover",
+      "archetype": "cover-editorial-split",
+      "eyebrow": "ORAL PAPER // PHYSICAL WORLD MODELS",
+      "eyebrow_morph_id": "nature-kicker",
+      "title": "NeuroSym-World：将**哈密顿守恒律**嵌入百亿参数视频世界模型",
+      "subtitle": "突破纯数据驱动扩散模型在长时程交互中的“动量凭空创生与几何穿透幻觉”，首次实现 60 秒刚柔耦合场景零能量发散预测。",
+      "media": {
+        "src": "art://nature-pendulum-trace",
+        "camera_mode": "portal-right",
+        "morph_id": "cinema-bg",
+        "caption": "Fig 1. Phase-Space Damped Harmonic Trajectory Convergence"
+      }
+    },
+    {
+      "id": "a2-versus",
+      "archetype": "comparison-versus",
+      "transition": "morph",
+      "eyebrow": "01 // PROBLEM FORMULATION",
+      "eyebrow_morph_id": "nature-kicker",
+      "title": "视觉逼真不等于物理可信：**像素级扩散模型的长程结构坍塌**",
+      "subtitle": "当世界模型用于具身规划与科学仿真时，微小的非保守场误差会随自回归步数指数级爆炸。",
+      "items": [
+        {
+          "tag": "UNCONSTRAINED PIXEL DIFFUSION",
+          "title": "纯黑盒二维光流扩散模型",
+          "metric": "42.6% 违例率",
+          "body": "仅拟合像素帧间统计相关性，超过 8 秒后频繁出现刚体相互穿透、质量无故湮灭及总能量发散。"
+        },
+        {
+          "tag": "SYMPLECTIC NEUROSYM (OURS)",
+          "title": "辛几何流形神经符号世界模型",
+          "metric": "1.8% 违例率",
+          "accent": true,
+          "body": "在连续潜空间显式解耦广义坐标与共轭动量，通过可微蛙跳辛积分器严格保持相空间体积与能量上界。"
+        }
+      ]
+    },
+    {
+      "id": "a3-math",
+      "archetype": "academic-paper-2col",
+      "eyebrow": "02 // THEORETICAL FORMULATION",
+      "title": "核心数学建模：潜空间**耗散端口哈密顿神经微分方程**",
+      "subtitle": "在保守辛结构矩阵基础上引入半正定瑞利耗散势，统一刻画弹性碰撞与真实接触摩擦。",
+      "formula_block": {
+        "title": "Dissipative Port-Hamiltonian Dynamics",
+        "equation_number": "(Eq. 3)",
+        "latex": "\\frac{d}{dt}\\begin{bmatrix} \\mathbf{q}_t \\\\ \\mathbf{p}_t \\end{bmatrix} = \\left( \\mathbf{J} - \\mathbf{R}(\\mathbf{q}_t) \\right) \\nabla \\mathcal{H}_{\\theta}(\\mathbf{q}_t, \\mathbf{p}_t) + \\mathbf{G}(\\mathbf{q}_t)\\mathbf{u}_t",
+        "symbols": [
+          {
+            "symbol": "\\mathbf{q}_t, \\mathbf{p}_t \\in \\mathbb{R}^d",
+            "meaning": "由三维高斯溅射编码器提取的对象中心广义坐标与共轭动量"
+          },
+          {
+            "symbol": "\\mathbf{J} = -\\mathbf{J}^\\top",
+            "meaning": "反对称辛结构矩阵，从代数结构上严格保证保守内力不做净功"
+          },
+          {
+            "symbol": "\\mathbf{R}(\\mathbf{q}_t) \\succeq 0",
+            "meaning": "半正定瑞利摩擦耗散算子，确保零输入下系统总能量单调不增"
+          },
+          {
+            "symbol": "\\mathbf{u}_t",
+            "meaning": "外部智能体施加的连续力矩控制向量"
+          }
+        ]
+      },
+      "items": [
+        {
+          "tag": "THEOREM 1",
+          "title": "长时程李雅普诺夫有界性保证",
+          "accent": true,
+          "formula": "\\frac{d\\mathcal{H}_\\theta}{dt} = -(\\nabla_{\\mathbf{p}}\\mathcal{H}_\\theta)^\\top \\mathbf{R} (\\nabla_{\\mathbf{p}}\\mathcal{H}_\\theta) \\le 0",
+          "body": "严格证明了任意步长自回归展开均不会发生潜变量范数爆炸。"
+        },
+        {
+          "tag": "DISCRETIZATION",
+          "title": "二阶蛙跳辛积分核 (Leapfrog Symplectic)",
+          "body": "相比传统欧拉离散化，长期能量漂移上界由线性发散 $O(T \\cdot \\Delta t)$ 压缩至有界微幅振荡 $O(\\Delta t^2)$。"
+        }
+      ]
+    },
+    {
+      "id": "a4-pipeline",
+      "archetype": "architecture-flow",
+      "eyebrow": "03 // ARCHITECTURE PIPELINE",
+      "title": "端到端可微**等变感知—符号辛演化—4D高斯渲染**流水线",
+      "diagram": {
+        "layout": "pipeline",
+        "nodes": [
+          {
+            "id": "p1",
+            "label": "多视角 RGB-D 观测流",
+            "sublabel": "SE(3) 等变特征 ∈ R^{K×256}"
+          },
+          {
+            "id": "p2",
+            "label": "对象符号槽编码器",
+            "sublabel": "解耦相空间 (q_t, p_t, M^{-1})",
+            "accent": true
+          },
+          {
+            "id": "p3",
+            "label": "二阶蛙跳辛积分核",
+            "sublabel": "Δt=16ms 守恒场 (J-R)∇H_θ",
+            "accent": true
+          },
+          {
+            "id": "p4",
+            "label": "4D 高斯溅射解码器",
+            "sublabel": "可微多视角物理一致重渲染"
+          }
+        ],
+        "edges": [
+          {
+            "from": "p1",
+            "to": "p2",
+            "label": "Slot Attn"
+          },
+          {
+            "from": "p2",
+            "to": "p3",
+            "label": "Latent ODE"
+          },
+          {
+            "from": "p3",
+            "to": "p4",
+            "label": "4D-GS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a5-table",
+      "archetype": "three-line-table",
+      "eyebrow": "04 // QUANTITATIVE EVALUATION",
+      "title": "PhysBench-4D 与真实灵巧操作基准**主实验 SOTA 定量对比**",
+      "table": {
+        "caption": "Table 1: 600 帧长时程物理预测与下游机械臂规划成功率对比（均值，3 随机种子）",
+        "headers": [
+          "Method (方法模型)",
+          "Params",
+          "FVD ↓ (视觉质量)",
+          "Energy Drift ↓ (能量漂移)",
+          "3D IoU ↑ (几何一致)",
+          "Robot Task SR ↑"
+        ],
+        "align": [
+          "left",
+          "center",
+          "center",
+          "center",
+          "center",
+          "center"
+        ],
+        "highlight_rows": [
+          4
+        ],
+        "rows": [
+          [
+            "Cosmos-Predict-14B",
+            "14.0B",
+            "84.2",
+            "38.7%",
+            "0.512",
+            "54.0%"
+          ],
+          [
+            "VideoDiT-XL + Flow",
+            "7.2B",
+            "91.5",
+            "44.1%",
+            "0.486",
+            "48.5%"
+          ],
+          [
+            "NeuralODE-Latent",
+            "3.4B",
+            "106.8",
+            "19.4%",
+            "0.628",
+            "66.2%"
+          ],
+          [
+            "NeuroSym w/o Symplectic (Ablation)",
+            "3.8B",
+            "76.4",
+            "14.2%",
+            "0.705",
+            "74.8%"
+          ],
+          [
+            "**NeuroSym-World (Ours)**",
+            "**3.8B**",
+            "**62.1**",
+            "**1.3%**",
+            "**0.849**",
+            "**89.6%**"
+          ]
+        ],
+        "footnote": "↓ 越低越优，↑ 越高越优；突出显示行代表统计显著最优 (Paired t-test p < 0.001)。"
+      }
+    },
+    {
+      "id": "a6-chart",
+      "archetype": "chart-spotlight",
+      "eyebrow": "05 // LONG-HORIZON STABILITY",
+      "title": "跨越 60 秒超长时程推演，系统能量漂移始终收敛于**1.5%以内**",
+      "items": [
+        {
+          "title": "参数量缩减 73%，性能大幅反超",
+          "metric": "3.8B",
+          "accent": true,
+          "body": "嵌入式物理守恒归纳偏置免除了模型从海量噪声像素中暴力拟合牛顿定律的冗余容量。"
+        },
+        {
+          "title": "零样本极端重力泛化",
+          "metric": "+31.4%",
+          "body": "在训练未见的月球低重力 (1.62 m/s²) 与非牛顿流体交互集上保持稳健推演。"
+        }
+      ],
+      "chart": {
+        "type": "line",
+        "unit": "%",
+        "highlight_index": 5,
+        "callout": "60 秒（600 帧）推演末端：纯扩散基线能量误差发散至 **41.2%**，我方模型稳定在 **1.3%**",
+        "categories": [
+          "5s",
+          "10s",
+          "20s",
+          "30s",
+          "45s",
+          "60s"
+        ],
+        "series": [
+          {
+            "name": "NeuroSym-World (Ours)",
+            "values": [
+              0.6,
+              0.8,
+              1,
+              1.1,
+              1.2,
+              1.3
+            ]
+          },
+          {
+            "name": "Cosmos-Predict-14B Baseline",
+            "values": [
+              3.2,
+              8.5,
+              17.4,
+              25.8,
+              34,
+              41.2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a7-close",
+      "archetype": "closing-beacon",
+      "transition": "portal",
+      "eyebrow": "CONCLUSION & OPEN SCIENCE",
+      "title": "物理守恒先验与神经表征的统一，是通往**可信世界模型**的必由之路",
+      "subtitle": "全部训练代码、PhysBench-4D 基准数据集与预训练权重均已开源。",
+      "media": {
+        "src": "art://nature-pendulum-trace",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "OPEN REPOSITORY",
+          "tag": "OPEN REPOSITORY",
+          "body": "github.com/neurosym-world/core"
+        },
+        {
+          "title": "PROJECT PAGE",
+          "tag": "PROJECT PAGE",
+          "body": "neurosym-world.csail.mit.edu"
+        }
+      ]
+    }
+  ]
+}

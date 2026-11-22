@@ -1,0 +1,192 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "MAISON LUMIÈRE",
+    "subtitle": "静奢建筑与触觉回归 — 2026 全球空间美学策展提案",
+    "author": "Atelier Lumière Paris · Shanghai",
+    "date": "ISSUE NO. 14 // AUTUMN CURATION",
+    "brand_mark": "MAISON LUMIÈRE",
+    "style_id": "editorial-vogue",
+    "playbook_id": "brand-manifesto",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "v1-cover",
+      "archetype": "cover-cinematic",
+      "bleed_mark": "14",
+      "side_note": "ISSUE NO.14 — TACTILE ARCHITECTURE & LIGHT",
+      "eyebrow": "Curatorial Manifesto // Autumn–Winter",
+      "title": "在喧嚣像素时代，重建**可触摸的沉默与骨相**",
+      "title_morph_id": "lumiere-title",
+      "subtitle": "当光滑冰冷的屏幕吞噬了日常感知的颗粒度，真正的高奢空间正在从“视觉炫技”退回天然洞石、未漂白亚麻与午后斜阳的诚实对话。",
+      "media": {
+        "src": "art://travertine-linen-sculpture",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "PLATE 01 — ROMAN TRAVERTINE & BELGIAN LINEN"
+      }
+    },
+    {
+      "id": "v2-interlock",
+      "archetype": "editorial-magazine",
+      "transition": "portal",
+      "bleed_mark": "02",
+      "eyebrow": "CHAPTER I // ARCHITECTURAL INTERLOCK",
+      "title": "字跨明暗交界，打破**图像与排印割裂的藩篱**",
+      "subtitle": "拒绝将空间摄影缩进局促的方框。让石灰岩螺旋穹顶化作左侧通顶画窗，以建筑切口衬板承载锋利排印。",
+      "media": {
+        "src": "art://vogue-spiral-stair",
+        "camera_mode": "portal-left",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "洞石孔隙的时间呼吸",
+          "body": "保留罗马洞石未经树脂封堵的天然蜂窝气孔，让侧向低角度天光在石壁切出微缩峡谷般的漫反射阴影。"
+        },
+        {
+          "title": "重磅原麻的声学包裹",
+          "body": "以经纬分明的未漂白亚麻垂幔软化硬朗石材棱角，吸收高频混响，构筑修道院般的静谧声场。"
+        }
+      ]
+    },
+    {
+      "id": "v3-quote",
+      "archetype": "quote-manifesto",
+      "transition": "morph",
+      "bleed_mark": "“",
+      "media": {
+        "src": "art://monolith-chiaroscuro",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "quote": {
+        "text": "真正的奢华从不是装饰的堆砌，而是当一切冗余被克制剥离后，**光落在粗粝原石上那道恰到好处的阴影**。",
+        "author": "Claire Moreau",
+        "role": "Maison Lumière 巴黎首席空间策展总监"
+      }
+    },
+    {
+      "id": "v4-golden",
+      "archetype": "split-golden-ratio",
+      "transition": "portal",
+      "bleed_mark": "04",
+      "eyebrow": "CHAPTER II // SPATIAL CHOREOGRAPHY",
+      "title": "先抑后扬：三段式明暗压缩的**心理降速序厅**",
+      "subtitle": "以光通量的戏剧性落差洗去访客步入展厅前的都市浮躁。",
+      "media": {
+        "src": "art://vogue-spiral-stair",
+        "camera_mode": "portal-left",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "tag": "COMPRESSION // 15 LUX",
+          "title": "玄关暗巷收敛视线",
+          "metric": "2.4 m",
+          "body": "刻意压低入口廊道挑高，仅留地面一道洗墙暖光引导脚步放缓。"
+        },
+        {
+          "tag": "RELEASE // 380 LUX",
+          "title": "旋梯光井豁然释放",
+          "metric": "7.8 m",
+          "accent": true,
+          "body": "步出暗巷瞬间迎接近八米挑高弧形天窗，自然天光沿旋转石阶倾泻而下。"
+        }
+      ]
+    },
+    {
+      "id": "v5-stagger",
+      "archetype": "cards-3-staggered",
+      "bleed_mark": "05",
+      "eyebrow": "CHAPTER III // MULTI-SENSORY ARCHIVE",
+      "title": "超越视觉的**三维五感空间记忆标尺**",
+      "subtitle": "摒弃生硬展板，让空间气质同时镌刻在指尖温度、嗅觉与听觉余韵里。",
+      "items": [
+        {
+          "tag": "LUMINANCE",
+          "title": "日落色温无感随动",
+          "icon": "aperture",
+          "metric": "2700K",
+          "body": "全馆照明随室外暮色自动向烛光暖调平滑过渡，赋予黄昏展厅神圣仪式感。"
+        },
+        {
+          "tag": "OLFACTORY",
+          "title": "冷萃矿物与雪松印记",
+          "icon": "feather",
+          "metric": "No.07",
+          "accent": true,
+          "body": "将雨后石灰岩、干雪松木屑与岩兰草气息隐匿于微风循环系统之中。"
+        },
+        {
+          "tag": "ACOUSTICS",
+          "title": "图书馆级留白声景",
+          "icon": "sliders",
+          "metric": "32 dB",
+          "body": "精密控制室内背景噪底，唯留庭院水滴落入黑石钵的清脆自然泛音。"
+        }
+      ]
+    },
+    {
+      "id": "v6-roadmap",
+      "archetype": "roadmap-milestones",
+      "eyebrow": "CHAPTER IV // GLOBAL EXHIBITION CALENDAR",
+      "title": "2026–2027 四城巡回**建筑美学特展日历**",
+      "items": [
+        {
+          "tag": "PARIS // OCT 2026",
+          "title": "玛黑区百年铸铁工坊首展",
+          "metric": "1,200 ㎡",
+          "accent": true,
+          "body": "在十九世纪砖拱天窗下呈现洞石与原麻首发大型空间装置。"
+        },
+        {
+          "tag": "SHANGHAI // DEC 2026",
+          "title": "西岸美术馆大道江畔展亭",
+          "metric": "1,850 ㎡",
+          "body": "引入黄浦江冬日晨雾意象，打造水院环绕式静谧长廊。"
+        },
+        {
+          "tag": "MILAN // APR 2027",
+          "title": "米兰设计周古修道院回廊",
+          "metric": "960 ㎡",
+          "body": "当代极简几何切面与五百年历史石柱群展开跨时空对话。"
+        },
+        {
+          "tag": "KYOTO // SEP 2027",
+          "title": "东山町家枯山水私享终章",
+          "metric": "640 ㎡",
+          "body": "每日仅开放 40 席预约凝视时段，回归极致东方幽玄尺度。"
+        }
+      ]
+    },
+    {
+      "id": "v7-close",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "bleed_mark": "FIN",
+      "eyebrow": "ATELIER LUMIÈRE // PRIVATE SALON",
+      "title": "唯有经得起凝视的肌理，**方能对抗速朽**。",
+      "title_morph_id": "lumiere-title",
+      "subtitle": "诚邀莅临巴黎与上海预览沙龙，共启空间诗学新章。",
+      "media": {
+        "src": "art://vogue-spiral-stair",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "CURATORIAL DESK",
+          "tag": "CURATORIAL DESK",
+          "body": "salon@maison-lumiere.art"
+        },
+        {
+          "title": "CITIES",
+          "tag": "CITIES",
+          "body": "Paris · Shanghai · Milan · Kyoto"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+[
+  {
+    "slug": "01-apple-keynote-dark",
+    "style": "apple-keynote-dark",
+    "slides": 8,
+    "nativeTextNodes": 131,
+    "nativeShapes": 179,
+    "nativeCharts": 1,
+    "nativeTables": 0,
+    "morphSlides": [
+      2,
+      3,
+      4,
+      5,
+      8
+    ],
+    "matchedMorphPairs": [
+      {
+        "slideFrom": 1,
+        "slideTo": 2,
+        "sharedNames": [
+          "!!cinema-bg",
+          "!!kicker-aether"
+        ]
+      },
+      {
+        "slideFrom": 2,
+        "slideTo": 3,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      },
+      {
+        "slideFrom": 3,
+        "slideTo": 4,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      },
+      {
+        "slideFrom": 4,
+        "slideTo": 5,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      }
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "02-editorial-vogue",
+    "style": "editorial-vogue",
+    "slides": 7,
+    "nativeTextNodes": 95,
+    "nativeShapes": 130,
+    "nativeCharts": 0,
+    "nativeTables": 0,
+    "morphSlides": [
+      2,
+      3,
+      4,
+      7
+    ],
+    "matchedMorphPairs": [
+      {
+        "slideFrom": 1,
+        "slideTo": 2,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      },
+      {
+        "slideFrom": 2,
+        "slideTo": 3,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      },
+      {
+        "slideFrom": 3,
+        "slideTo": 4,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      }
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "03-oriental-ink-zen",
+    "style": "oriental-ink-zen",
+    "slides": 7,
+    "nativeTextNodes": 87,
+    "nativeShapes": 101,
+    "nativeCharts": 0,
+    "nativeTables": 0,
+    "morphSlides": [
+      2,
+      3,
+      4,
+      6,
+      7
+    ],
+    "matchedMorphPairs": [
+      {
+        "slideFrom": 1,
+        "slideTo": 2,
+        "sharedNames": [
+          "!!zen-title"
+        ]
+      },
+      {
+        "slideFrom": 3,
+        "slideTo": 4,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      },
+      {
+        "slideFrom": 6,
+        "slideTo": 7,
+        "sharedNames": [
+          "!!cinema-bg"
+        ]
+      }
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "04-aurora-glass-pitch",
+    "style": "aurora-glass-light",
+    "slides": 7,
+    "nativeTextNodes": 114,
+    "nativeShapes": 134,
+    "nativeCharts": 1,
+    "nativeTables": 0,
+    "morphSlides": [
+      2,
+      3,
+      7
+    ],
+    "matchedMorphPairs": [],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "05-executive-consulting",
+    "style": "executive-consulting",
+    "slides": 7,
+    "nativeTextNodes": 133,
+    "nativeShapes": 143,
+    "nativeCharts": 1,
+    "nativeTables": 1,
+    "morphSlides": [
+      2,
+      7
+    ],
+    "matchedMorphPairs": [
+      {
+        "slideFrom": 1,
+        "slideTo": 2,
+        "sharedNames": [
+          "!!exec-anchor"
+        ]
+      }
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "06-nature-academic",
+    "style": "nature-academic",
+    "slides": 7,
+    "nativeTextNodes": 142,
+    "nativeShapes": 136,
+    "nativeCharts": 1,
+    "nativeTables": 1,
+    "morphSlides": [
+      2,
+      7
+    ],
+    "matchedMorphPairs": [
+      {
+        "slideFrom": 1,
+        "slideTo": 2,
+        "sharedNames": [
+          "!!nature-kicker"
+        ]
+      }
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  },
+  {
+    "slug": "demo/artistic-ppt-demo",
+    "style": "stage-cyber-spotlight",
+    "slides": 8,
+    "nativeTextNodes": 138,
+    "nativeShapes": 193,
+    "nativeCharts": 1,
+    "nativeTables": 0,
+    "morphSlides": [
+      2,
+      3,
+      4,
+      8
+    ],
+    "overflowsRemaining": 0,
+    "collisionsRemaining": 0,
+    "fontScales": {}
+  }
+]

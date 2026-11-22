@@ -1,0 +1,39 @@
+{
+  "name": "artistic-ppt-studio",
+  "version": "1.0.0",
+  "description": "Model-agnostic, agent-ready artistic presentation engine compiling semantic SlideDeck IR into zero-dependency Web Cinema HTML and hybrid native-editable Morph PPTX.",
+  "type": "module",
+  "bin": {
+    "artistic-ppt": "./bin/artistic-ppt.mjs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "cli": "npx tsx src/cli.ts",
+    "showcase": "npx tsx src/scripts/build-showcase.ts",
+    "verify": "npx tsx src/scripts/verify-all.ts"
+  },
+  "keywords": [
+    "presentation",
+    "pptx",
+    "slides",
+    "agent-skill",
+    "morph-transition",
+    "design-system",
+    "keynote",
+    "bento-grid"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "jszip": "^3.10.1",
+    "katex": "^0.16.11",
+    "playwright-core": "^1.50.0",
+    "pptxgenjs": "^3.12.0"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

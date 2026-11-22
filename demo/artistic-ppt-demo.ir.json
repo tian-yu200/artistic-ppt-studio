@@ -1,0 +1,270 @@
+{
+  "version": "3.0",
+  "meta": {
+    "title": "ARTISTIC-PPT STUDIO v3.0",
+    "subtitle": "跨模型通用艺术演示双擎编译器 — Web Cinema 与全栈原生可编辑 Morph PPTX",
+    "author": "Artistic-PPT Architecture Team",
+    "date": "2026 MASTER SHOWCASE",
+    "brand_mark": "ARTISTIC-PPT // STUDIO v3.0",
+    "style_id": "stage-cyber-spotlight",
+    "playbook_id": "keynote-launch",
+    "locale": "zh-CN",
+    "show_slide_numbers": true
+  },
+  "slides": [
+    {
+      "id": "s01-cover",
+      "archetype": "cover-cinematic",
+      "bleed_mark": "V3",
+      "side_note": "UNIVERSAL COMPILER v3.0 — WEB CINEMA & NATIVE PPTX",
+      "eyebrow": "UNIVERSAL PRESENTATION COMPILER // v3.0",
+      "eyebrow_morph_id": "kicker-studio",
+      "title": "重塑视觉叙事的**确定性编译美学**",
+      "title_morph_id": "studio-hero-title",
+      "subtitle": "告别手搓坐标与廉价圆角盒套娃——仅凭一份轻量语义 SlideDeck IR，同源编译出纯离线零依赖 Web Cinema 与全栈原生可编辑 Morph PPTX。",
+      "media": {
+        "src": "art://cyber-stage-laser",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "01 / 08  →  12 BESPOKE STYLES × 24 OPEN ARCHETYPES"
+      }
+    },
+    {
+      "id": "s02-interlock",
+      "archetype": "editorial-magazine",
+      "transition": "portal",
+      "bleed_mark": "01",
+      "eyebrow": "01 // PARADIGM BREAKTHROUGH",
+      "eyebrow_morph_id": "kicker-studio",
+      "title": "终结 AI 幻灯片的**圆角框套娃与静态死图悖论**",
+      "subtitle": "将智能体的分镜叙事力与双轨编译器的几何排印纪律解耦，实现视觉艺术感与工程可编辑性的统一。",
+      "media": {
+        "src": "art://neo-brutal-chrome",
+        "camera_mode": "portal-left",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "中文语义不断词排印引擎",
+          "metric": "Intl.Segmenter",
+          "body": "词级 Unicode Word Joiner 锁死双音节词与句尾收官词，彻底根治标题孤字与半角空格撕裂。"
+        },
+        {
+          "title": "五层真原生 PPTX 对象映射",
+          "metric": "100% Editable",
+          "body": "文本、三线表、统计图表 (addChart)、建筑分割线与拓扑节点均为原生 PowerPoint 对象，改字绝不穿帮。"
+        }
+      ]
+    },
+    {
+      "id": "s03-architecture",
+      "archetype": "architecture-flow",
+      "transition": "morph",
+      "eyebrow": "02 // DUAL-TARGET COMPILER PIPELINE",
+      "title": "从语义分镜到双端成片的**五阶全离线编译闭环**",
+      "diagram": {
+        "layout": "layered",
+        "nodes": [
+          {
+            "id": "ir",
+            "label": "SlideDeck IR (JSON v2.0)",
+            "sublabel": "零像素坐标 · 分镜叙事与 morph_id 运镜锚点",
+            "layer": 0,
+            "accent": true
+          },
+          {
+            "id": "lint",
+            "label": "Tier-1 视觉睁眼碰撞与溢出自愈",
+            "sublabel": "SVG/DOM BBox 两两防叠字 + Anti-Boxification",
+            "layer": 1,
+            "accent": true
+          },
+          {
+            "id": "tokens",
+            "label": "StylePack.decor 克制美学注入",
+            "sublabel": "12 独立高定真图 × 离线内联 KaTeX 字体",
+            "layer": 1,
+            "accent": true
+          },
+          {
+            "id": "html",
+            "label": "Web Cinema (.html)",
+            "sublabel": "纯离线单文件 · T键全联动换肤 · 三层柔和视差",
+            "layer": 2
+          },
+          {
+            "id": "pptx",
+            "label": "True-Native Morph (.pptx)",
+            "sublabel": "!!cinema-bg 画窗 + 原生Excel图表 + p159:morph",
+            "layer": 2
+          }
+        ],
+        "edges": [
+          { "from": "ir", "to": "lint", "label": "Schema & CJK 分词校验" },
+          { "from": "ir", "to": "tokens", "label": "一对一风格资产绑定" },
+          { "from": "lint", "to": "html", "label": "自适应字号收敛" },
+          { "from": "tokens", "to": "pptx", "label": "五层 OpenXML 合成" }
+        ]
+      }
+    },
+    {
+      "id": "s04-metric",
+      "archetype": "hero-metric",
+      "transition": "portal",
+      "bleed_mark": "12",
+      "eyebrow": "03 // ZERO ASSET COLLISION",
+      "title": "十二套独立艺术流派，**一对一专属高定视觉资产**",
+      "media": {
+        "src": "art://silicon-photonic-macro",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "hero_metric": {
+        "value": "18",
+        "unit": "+",
+        "delta": "BUILT-IN NEGATIVE-SPACE ARTWORKS (ZERO EXTERNAL URLS)",
+        "label": "内置超清大留白艺术摄影与渲染真图库",
+        "description": "涵盖硅光晶圆、宋代一角水墨、苏黎世几何钢构、手作暖陶、美术馆旋梯与物理阻尼谐振轨迹，彻底告别风格撞图。"
+      },
+      "overlap_note": {
+        "title": "T 键全维色彩与图表换肤",
+        "body": "在 Web 演示台按下 T 键，背景光场、排印对比与全部 SVG 图表色盘 0ms 无损自适应切换，断网内网 100% 稳定运行。",
+        "position": "bottom-right",
+        "morph_id": "demo-overlap"
+      }
+    },
+    {
+      "id": "s05-quadrant",
+      "archetype": "quadrant-matrix",
+      "eyebrow": "04 // STRATEGIC POSITIONING",
+      "title": "打破“高颜值”与“真可编辑”悖论，独占**双擎领航象限**",
+      "items": [
+        {
+          "title": "告别静态截图糊墙皮",
+          "accent": true,
+          "body": "传统网页转 PPT 一改文字即压穿背景死线；v3.0 将分割线、图表与卡片全面还原为原生对象。"
+        },
+        {
+          "title": "跨模型与跨 Agent 通用",
+          "body": "配备标准 SKILL.md、JSON Schema 与 CLI，Claude、GPT、Gemini 均可稳定驱动。"
+        }
+      ],
+      "quadrant": {
+        "x_label_left": "静态死图 / 改字即错位穿帮",
+        "x_label_right": "全栈原生对象与图表双击可改",
+        "y_label_bottom": "圆角框套娃 / 机械伪先锋符号",
+        "y_label_top": "流派克制美学与殿堂级空间留白",
+        "quadrant_labels": [
+          "纯网页/海报截图派",
+          "Artistic-PPT v3.0 领航区",
+          "早期大纲生成工具",
+          "传统办公模板套用器"
+        ],
+        "points": [
+          { "label": "Artistic-PPT v3.0", "x": 85, "y": 85, "size": 9, "highlight": true },
+          { "label": "纯 HTML 幻灯片", "x": 24, "y": 76, "size": 6 },
+          { "label": "传统 PPT 模板库", "x": 76, "y": 32, "size": 6 },
+          { "label": "AI 海报转曲导出", "x": 20, "y": 46, "size": 5 },
+          { "label": "大纲套壳工具", "x": 42, "y": 22, "size": 5 }
+        ]
+      }
+    },
+    {
+      "id": "s06-chart",
+      "archetype": "chart-spotlight",
+      "eyebrow": "05 // VERIFIED QUALITY BENCHMARK",
+      "title": "多模态审片与包围盒防碰撞门禁，交付品质达**99.2 分**",
+      "items": [
+        {
+          "title": "零叠字零劈词门禁",
+          "metric": "0 Collisions",
+          "accent": true,
+          "body": "无头 Chromium 逐页遍历全部 SVG <text> 与 DOM 文本包围盒交集，任何叠字即时拦截。"
+        },
+        {
+          "title": "极速双轨同步落盘",
+          "metric": "< 6.5 s",
+          "body": "单次编译同步产出交互式 HTML、原生可编辑 PPTX 与高清分镜审片图。"
+        }
+      ],
+      "chart": {
+        "type": "bar",
+        "unit": " 分",
+        "highlight_index": 3,
+        "callout": "在中文排印细腻度、流派克制感与 PPTX 原生二次可编辑率三维评测中**断层领先**",
+        "categories": [
+          "大纲套模板工具",
+          "静态背景截图方案",
+          "手写坐标脚本",
+          "Artistic-PPT v3.0"
+        ],
+        "series": [
+          {
+            "name": "演示工程综合质量指数",
+            "values": [48, 66, 74, 99.2]
+          }
+        ]
+      },
+      "footnote": "Verified by Automated OpenXML Inspector & Headless BBox Collision Linter."
+    },
+    {
+      "id": "s07-code",
+      "archetype": "code-architecture",
+      "eyebrow": "06 // DEVELOPER & AGENT DX",
+      "eyebrow_morph_id": "kicker-finale",
+      "title": "极简声明式接入，一行命令**驱动双擎全栈编译**",
+      "code_block": {
+        "language": "bash",
+        "caption": "Quickstart // SlideDeck IR + Universal CLI",
+        "highlight_lines": [2, 3, 6, 7, 8],
+        "code": "# 1. 生成 12 大殿堂级艺术风格一对一预览画廊\nnode bin/artistic-ppt.mjs preview-styles \\\n  --title \"下一代空间智能基座\" --all --out-dir ./previews\n\n# 2. 一键编译纯离线 HTML + 全原生可编辑 Morph PPTX + 审片图\nnode bin/artistic-ppt.mjs compile \\\n  ./demo/artistic-ppt-demo.ir.json \\\n  --out-dir ./demo --name artistic-ppt-demo"
+      },
+      "items": [
+        {
+          "title": "开箱即用 Agent Skill 包",
+          "icon": "terminal",
+          "accent": true,
+          "body": "内置完整 SKILL.md、系统提示词模板与 JSON Schema，零学习成本接入任意智能体。"
+        },
+        {
+          "title": "专业级快捷键放映控台",
+          "icon": "compass",
+          "body": "单 HTML 内置 T 全联动换肤、O 分镜鸟瞰、S 演讲计时提词台与 L 光学激光笔。"
+        }
+      ]
+    },
+    {
+      "id": "s08-closing",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "bleed_mark": "OK",
+      "eyebrow": "READY TO CREATE // ARTISTIC-PPT STUDIO v3.0",
+      "eyebrow_morph_id": "kicker-finale",
+      "title": "让每一次表达，\n皆成**经得起挑剔的视觉杰作**。",
+      "title_morph_id": "studio-hero-title",
+      "subtitle": "立即在浏览器打开 HTML 体验丝滑交互与 T 键联动换肤，或在 PowerPoint 中双击编辑原生图表与文本。",
+      "media": {
+        "src": "art://apple-titanium-cavity",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "SHORTCUTS",
+          "tag": "SHORTCUTS",
+          "body": "T 联动换肤 · O 鸟瞰 · S 备注 · L 激光笔"
+        },
+        {
+          "title": "TRUE NATIVE PPTX",
+          "tag": "TRUE NATIVE PPTX",
+          "body": "原生图表 + 原生分割线 + 独立透明公式 + Morph"
+        },
+        {
+          "title": "BESPOKE MATRIX",
+          "tag": "BESPOKE MATRIX",
+          "body": "12 专属风格 × 18 高定真图 × 24 版式"
+        }
+      ]
+    }
+  ]
+}

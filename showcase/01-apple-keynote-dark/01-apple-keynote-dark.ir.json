@@ -1,0 +1,272 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "AETHER M5",
+    "subtitle": "以片上硅光互连重构端侧万亿参数空间智能",
+    "author": "Aether Silicon Lab",
+    "date": "2026 AUTUMN KEYNOTE",
+    "brand_mark": "AETHER // SILICON",
+    "style_id": "apple-keynote-dark",
+    "playbook_id": "keynote-launch",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "s1-cover",
+      "archetype": "cover-cinematic",
+      "bleed_mark": "M5",
+      "side_note": "KEYNOTE 2026 — OPTICAL SILICON ARCHITECTURE",
+      "eyebrow": "Prologue // Beyond Copper Limits",
+      "eyebrow_morph_id": "kicker-aether",
+      "title": "认识 **Aether M5**\n光速级端侧神经引擎",
+      "title_morph_id": "hero-aether-title",
+      "subtitle": "首次将 64 通道纳米硅光波导直接刻入 2nm 计算裸片，彻底击穿传统铜互连内存墙，让百亿多模态世界模型在毫瓦级功耗下实时觉醒。",
+      "media": {
+        "src": "art://silicon-photonic-macro",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "01 / 08  →  64-CHANNEL SILICON PHOTONIC DIE"
+      }
+    },
+    {
+      "id": "s2-interlock",
+      "archetype": "editorial-magazine",
+      "transition": "portal",
+      "bleed_mark": "68",
+      "eyebrow": "01 // THE COPPER BOTTLENECK",
+      "eyebrow_morph_id": "kicker-aether",
+      "title": "算力暴涨百倍，芯片内部却有**68%的总功耗**困于搬运途中",
+      "subtitle": "电子在纳米铜线中的焦耳热阻与 RC 延迟，已成为端侧实时空间智能不可逾越的物理高墙。",
+      "media": {
+        "src": "art://silicon-photonic-macro",
+        "camera_mode": "portal-left",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "跨封装带宽饥渴",
+          "metric": "4.2 TB/s",
+          "body": "万亿参数多模态推理每秒需吞吐逾 4TB 张量权重，传统电互连功耗呈指数级失控。"
+        },
+        {
+          "title": "眩晕安全时延红线",
+          "metric": "< 12 ms",
+          "body": "超过 15ms 的光子到像素（Photon-to-Photon）延迟将直接破坏空间计算的临场真实感。"
+        }
+      ]
+    },
+    {
+      "id": "s3-collage",
+      "archetype": "bento-asymmetric-4",
+      "transition": "morph",
+      "bleed_mark": "02",
+      "eyebrow": "02 // UNIFIED PHOTONIC ARCHITECTURE",
+      "title": "四大物理层重构，铸就**零热耗光子网格**",
+      "subtitle": "摒弃冗余总线仲裁，让计算簇通过片上激光脉冲直接对话。",
+      "items": [
+        {
+          "title": "硅光波导片上网格 (Optical Mesh)",
+          "tag": "FLAGSHIP CORE",
+          "metric": "9.6 TB/s",
+          "body": "以 1310nm 激光脉冲替代电子充放电传输张量，跨核寻址延迟骤降至皮秒量级。",
+          "accent": true,
+          "morph_id": "cinema-bg",
+          "media": {
+            "src": "art://monolith-chiaroscuro"
+          }
+        },
+        {
+          "title": "动态稀疏 FP4 神经张量核",
+          "tag": "NEURAL ENGINE",
+          "icon": "zap",
+          "metric": "180 TOPS",
+          "body": "硬件级自动跳过 75% 无效零激活权重，峰值算力密度提升 3.2 倍。"
+        },
+        {
+          "title": "零拷贝统一光子内存池",
+          "tag": "UNIFIED MEMORY",
+          "icon": "layers",
+          "metric": "192 GB",
+          "body": "CPU、GPU 与光子张量核共享同一物理寻址空间，彻底消除拷贝开销。"
+        },
+        {
+          "title": "物理量子随机数安全飞地",
+          "tag": "ENCLAVE",
+          "icon": "shield",
+          "metric": "AES-512",
+          "body": "基于光子散粒噪声生成真随机密钥流，端侧隐私数据永不出片。"
+        }
+      ]
+    },
+    {
+      "id": "s4-zoom",
+      "archetype": "focus-zoom-detail",
+      "transition": "parallax",
+      "container_morph_id": "cinema-bg",
+      "bleed_mark": "03",
+      "eyebrow": "03 // MICRO-RING RESONATOR DEEP DIVE",
+      "title": "推镜深潜：4 微米谐振环的**皮秒级光谱路由**",
+      "subtitle": "在 CNC 精密阳极氧化钛金散热腔之下集成氮化硅微环阵列，单根波导并行复用 16 路独立波长信号。",
+      "media": {
+        "src": "art://apple-titanium-cavity",
+        "camera_mode": "pan-zoom-detail",
+        "morph_id": "cinema-bg"
+      },
+      "hero_metric": {
+        "value": "0.32",
+        "unit": " pJ/bit",
+        "label": "超低光电转换比特能耗（仅为传统电 SerDes 的 1/9）"
+      },
+      "items": [
+        {
+          "title": "闭环热敏自校准偏置",
+          "icon": "sparkles",
+          "body": "片上微秒级热传感器动态锁定谐振波长，跨越 100°C 温差零误码运行。"
+        },
+        {
+          "title": "全交叉无阻塞光开关",
+          "icon": "network",
+          "body": "任意两个计算簇之间仅需一次光折射直达，消除高并发尾延迟抖动。"
+        },
+        {
+          "title": "原生兼容 300mm 标准晶圆厂",
+          "icon": "cpu",
+          "body": "无需昂贵奇异化合物工艺，直接复用成熟硅光后道产线实现百万片级交付。"
+        }
+      ]
+    },
+    {
+      "id": "s5-metric",
+      "archetype": "hero-metric",
+      "transition": "morph",
+      "bleed_mark": "4.8",
+      "eyebrow": "04 // PER-WATT BREAKTHROUGH",
+      "title": "无风扇被动散热包络下的**绝对能效统治力**",
+      "media": {
+        "src": "art://cyber-stage-laser",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "hero_metric": {
+        "value": "4.8",
+        "unit": "×",
+        "delta": "+380% EFFICIENCY OVER DESKTOP NPU",
+        "label": "端侧 70B 多模态模型每瓦特持续解码吞吐跃升",
+        "description": "在仅 12W 轻薄设备功耗上限内稳定输出 68 tokens/s，并同步驱动双目 8K@120Hz 实时空间渲染。"
+      },
+      "overlap_note": {
+        "title": "11.4 ms 首字瞬时响应",
+        "body": "深空钛蓝冷调铭牌：32K 上下文零感预填充，全天候 22 小时免充电续航。",
+        "position": "bottom-right",
+        "morph_id": "aether-overlap"
+      }
+    },
+    {
+      "id": "s6-chart",
+      "archetype": "chart-spotlight",
+      "eyebrow": "05 // MLPERF CLIENT BENCHMARK",
+      "title": "百万词元长窗口推理吞吐**全面领跑旗舰芯片**",
+      "items": [
+        {
+          "title": "线性长序列扩展",
+          "metric": "1M ctx",
+          "accent": true,
+          "body": "依托高带宽统一光内存，在百万上下文负载下彻底告别传统显存换页悬崖。"
+        },
+        {
+          "title": "实测环境基准",
+          "metric": "25°C",
+          "body": "MLPerf Client v4.5 多模态标准套件，无主动风扇连续满载 30 分钟均值。"
+        }
+      ],
+      "chart": {
+        "type": "bar",
+        "unit": " tok/s",
+        "highlight_index": 4,
+        "callout": "Aether M5 在 15W 端侧功耗下飙升至 **118 tok/s**，达到桌面级 65W 处理器的 **2.4倍**",
+        "categories": [
+          "Mobile SoC X",
+          "Laptop NPU Pro",
+          "Desktop APU Z",
+          "Aether M4",
+          "Aether M5"
+        ],
+        "series": [
+          {
+            "name": "70B Multimodal Decode Throughput",
+            "values": [
+              19,
+              34,
+              49,
+              68,
+              118
+            ]
+          }
+        ]
+      },
+      "footnote": "Source: Aether Silicon Architecture Verification Lab, Q4 2026."
+    },
+    {
+      "id": "s7-code",
+      "archetype": "code-architecture",
+      "eyebrow": "06 // PHOTONGRAPH COMPILER",
+      "title": "三行代码，无缝唤醒**片上光广播原语加速**",
+      "code_block": {
+        "language": "typescript",
+        "caption": "aether-sdk // spatial_pipeline.ts",
+        "highlight_lines": [
+          4,
+          5,
+          6,
+          9
+        ],
+        "code": "import { PhotonSession, QuantMode } from '@aether/photon-rt';\n\nconst session = await PhotonSession.compile({\n  model: 'omni-world-72b.aether',\n  interconnect: 'optical-mesh-zero-copy',\n  precision: QuantMode.DynamicFP4,\n  latencyBudgetMs: 12\n});\n\nconst frameState = await session.stepSpatialStream(rgbDepthTensor);"
+      },
+      "items": [
+        {
+          "title": "PyTorch / JAX 零侵入图捕获",
+          "icon": "terminal",
+          "accent": true,
+          "body": "编译器自动将多头注意力归约算子映射为单周期光波分广播，无需改写模型代码。"
+        },
+        {
+          "title": "皮秒级光路可视化探针",
+          "icon": "eye",
+          "body": "内置硬件性能计数器，实时呈现 64 通道光谱负载热力图与缓存命中轨迹。"
+        }
+      ]
+    },
+    {
+      "id": "s8-closing",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "bleed_mark": "M5",
+      "eyebrow": "EPILOGUE // ONE MORE THING",
+      "title": "光之所及，**皆为算境**。",
+      "title_morph_id": "hero-aether-title",
+      "subtitle": "Aether M5 开发者先锋套件即日起开放全球限量申请。",
+      "media": {
+        "src": "art://apple-titanium-cavity",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "DEV PORTAL",
+          "tag": "DEV PORTAL",
+          "body": "developer.aether.silicon"
+        },
+        {
+          "title": "WHITEPAPER",
+          "tag": "WHITEPAPER",
+          "body": "ISSCC 2027 Plenary Paper"
+        },
+        {
+          "title": "SHIPPING",
+          "tag": "SHIPPING",
+          "body": "2027 Q1 Mass Production"
+        }
+      ]
+    }
+  ]
+}

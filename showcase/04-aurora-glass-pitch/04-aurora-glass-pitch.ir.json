@@ -1,0 +1,251 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "VERDANT ROBOTICS",
+    "subtitle": "通用视触觉具身操作基座模型 — Series A 融资路演",
+    "author": "Verdant Embodied AI Inc.",
+    "date": "SERIES A // CONFIDENTIAL PITCH",
+    "brand_mark": "VERDANT // AI",
+    "style_id": "aurora-glass-light",
+    "playbook_id": "vc-pitch-deck",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "p1-cover",
+      "archetype": "cover-cinematic",
+      "bleed_mark": "A",
+      "eyebrow": "Venture Thesis // Tactile Intelligence",
+      "title": "赋予工业机器人**人类指尖级的直觉与泛化力**",
+      "title_morph_id": "verdant-hook",
+      "subtitle": "Verdant 打造全球首个“多模态视觉—高维力触觉联合基座模型 (VTLA)”，让柔性线束盲插与精密装配实现零代码 15 分钟极速跨产线换型。",
+      "media": {
+        "src": "art://aurora-crystal-prism",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "SERIES A  →  $35M ROUND FOR GLOBAL DEPLOYMENT"
+      }
+    },
+    {
+      "id": "p2-versus",
+      "archetype": "comparison-versus",
+      "transition": "morph",
+      "bleed_mark": "78",
+      "eyebrow": "01 // THE $420B AUTOMATION BOTTLENECK",
+      "title": "为什么全球**78%的精密总装工位**至今仍无法被机械臂替代？",
+      "subtitle": "传统刚性轨迹编程在柔性形变器件面前彻底失灵，换线停产调试代价高昂。",
+      "items": [
+        {
+          "tag": "LEGACY RIGID PLC",
+          "title": "传统示教编程机械臂",
+          "metric": "6~8 周",
+          "body": "每次新品换线需停产数周编写上万行轨迹代码；公差偏移 1.5 毫米即导致卡死损坏良率崩盘。"
+        },
+        {
+          "tag": "VERDANT VTLA FOUNDATION",
+          "title": "Verdant 视触觉端到端基座",
+          "metric": "15 分钟",
+          "accent": true,
+          "morph_id": "vtla-pole",
+          "body": "产线工人手持示范 5 次即可零样本泛化上岗；1000Hz 力控闭环实时感知微牛顿级接触阻力。"
+        },
+        {
+          "title": "柔性介质盲区",
+          "body": "无法稳定抓取 FPC 软排线、硅胶密封圈与高反光透明件。"
+        },
+        {
+          "title": "跨本体即插即用",
+          "body": "一套权重原生适配 14 款主流机械臂与多指灵巧手（UR / KUKA / Franka）。"
+        }
+      ]
+    },
+    {
+      "id": "p3-metric",
+      "archetype": "hero-metric",
+      "transition": "portal",
+      "bleed_mark": "99",
+      "eyebrow": "02 // PRODUCTION-GRADE RELIABILITY",
+      "title": "跨越实验室演示，直抵**严苛灯塔工厂量产红线**",
+      "media": {
+        "src": "art://aurora-tactile-ripples",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "hero_metric": {
+        "value": "99.94",
+        "unit": "%",
+        "delta": "MILLION-CYCLE FPC BLIND INSERTION YIELD",
+        "label": "消费电子超细柔性排线百万次连续盲插良率",
+        "description": "依托 BOM 成本仅 $39 的自研光学视触觉指尖模组，每日从 600+ 已商用产线工位自动回流高价值接触力学边界数据。"
+      },
+      "overlap_note": {
+        "title": "2.0 ms 单步一致性流推理",
+        "body": "将多步扩散策略蒸馏为边缘端 2 毫秒闭环输出，单工位硬件回收期仅 4.2 个月。",
+        "position": "bottom-right",
+        "morph_id": "verdant-overlap"
+      }
+    },
+    {
+      "id": "p4-traction",
+      "archetype": "chart-spotlight",
+      "eyebrow": "03 // EXPLOSIVE COMMERCIAL TRACTION",
+      "title": "商业化启动 12 个月，已签约 ARR 突破**$1,850 万美元**",
+      "items": [
+        {
+          "title": "净收入留存率 (NDR)",
+          "metric": "168%",
+          "accent": true,
+          "body": "头部果链与跨国车企客户在首条产线验证 90 天内即启动整厂批量复购，LTV/CAC 达 6.4×。"
+        },
+        {
+          "title": "RaaS 软件订阅高毛利",
+          "metric": "76%",
+          "body": "采用“$2,800 触觉模组买断 + $18k/年工位模型订阅”的复利现金流架构。"
+        }
+      ],
+      "chart": {
+        "type": "area",
+        "unit": "$M",
+        "highlight_index": 5,
+        "callout": "连续 5 个季度环比增速超 **55%**，在手具约束力订单储备达 **$3,100 万美元**",
+        "categories": [
+          "25 Q3",
+          "25 Q4",
+          "26 Q1",
+          "26 Q2",
+          "26 Q3",
+          "26 Q4(E)"
+        ],
+        "series": [
+          {
+            "name": "Contracted ARR (USD Millions)",
+            "values": [
+              1.4,
+              2.9,
+              5.2,
+              8.8,
+              13.6,
+              18.5
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "p5-quadrant",
+      "archetype": "quadrant-matrix",
+      "eyebrow": "04 // COMPETITIVE MOAT",
+      "title": "兼顾**亚毫米量产良率**与**零样本跨品类泛化**的唯一领航者",
+      "items": [
+        {
+          "title": "相比纯视觉 VLA 创业公司",
+          "accent": true,
+          "body": "纯相机方案在遮挡插槽与过盈配合工位良率不足 70%，Verdant 凭借高频力触觉闭环独享高毛利总装市场。"
+        },
+        {
+          "title": "相比传统非标自动化集成商",
+          "body": "省去数百万定制精密治具投入，客户综合投资回收期（Payback）压缩至 4.2 个月。"
+        }
+      ],
+      "quadrant": {
+        "x_label_left": "单一工位刚性硬编码",
+        "x_label_right": "跨任务零样本通用泛化",
+        "y_label_bottom": "实验室演示级良率 (<90%)",
+        "y_label_top": "严苛产线量产级良率 (>99.9%)",
+        "quadrant_labels": [
+          "传统工控巨头",
+          "Verdant 领航壁垒区",
+          "非标定制集成商",
+          "纯视觉学术VLA原型"
+        ],
+        "points": [
+          {
+            "label": "Verdant AI",
+            "x": 84,
+            "y": 84,
+            "size": 9,
+            "highlight": true
+          },
+          {
+            "label": "Legacy PLC + Vision",
+            "x": 24,
+            "y": 78,
+            "size": 7
+          },
+          {
+            "label": "Vision-Only VLA",
+            "x": 76,
+            "y": 36,
+            "size": 6
+          },
+          {
+            "label": "System Integrators",
+            "x": 28,
+            "y": 40,
+            "size": 5
+          },
+          {
+            "label": "Teleop Prototypes",
+            "x": 56,
+            "y": 22,
+            "size": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "p6-ask",
+      "archetype": "roadmap-milestones",
+      "eyebrow": "05 // THE ASK & USE OF FUNDS",
+      "title": "本轮融资**$3,500 万美元**，冲刺万台工位数据飞轮奇点",
+      "items": [
+        {
+          "tag": "45% // FOUNDATION R&D",
+          "title": "百亿参数 VTLA-2 基座训练",
+          "metric": "$15.8M",
+          "accent": true,
+          "body": "扩充物理可微仿真集群，攻克双臂协同高动态线束缠绕与微电子装配。"
+        },
+        {
+          "tag": "30% // GLOBAL EXPANSION",
+          "title": "慕尼黑、圣何塞与东京交付中心",
+          "metric": "$10.5M",
+          "body": "支撑已签约欧洲车企与精密医疗器械灯塔客户全球同步扩产，2027 ARR 目标 $52M。"
+        },
+        {
+          "tag": "25% // TACTILE ECOSYSTEM",
+          "title": "第三代触觉芯片化模组量产",
+          "metric": "$8.7M",
+          "body": "将单指视触觉传感器 BOM 再降 50% 至 $19，向全球机器人本体厂开放标准接口。"
+        }
+      ]
+    },
+    {
+      "id": "p7-close",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "bleed_mark": "GO",
+      "eyebrow": "VERDANT ROBOTICS // JOIN THE JOURNEY",
+      "title": "让物理世界的灵巧生产力，**像云计算一样按需流淌**。",
+      "title_morph_id": "verdant-hook",
+      "subtitle": "诚邀长期主义投资伙伴莅临苏州与慕尼黑量产产线实地考察。",
+      "media": {
+        "src": "art://aurora-tactile-ripples",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "FOUNDERS",
+          "tag": "FOUNDERS",
+          "body": "founders@verdant-ai.io"
+        },
+        {
+          "title": "LIVE DEMO",
+          "tag": "LIVE DEMO",
+          "body": "Suzhou · Munich · San Jose"
+        }
+      ]
+    }
+  ]
+}

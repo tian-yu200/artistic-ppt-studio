@@ -1,0 +1,185 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "云林造物 · 计白当黑",
+    "subtitle": "宋代一角留白精神与当代江南院落空间营造",
+    "author": "云林建筑与人文研究所",
+    "date": "丙午年 · 秋集",
+    "brand_mark": "云林造物 // YUNLIN",
+    "style_id": "oriental-ink-zen",
+    "playbook_id": "brand-manifesto",
+    "locale": "zh-CN"
+  },
+  "slides": [
+    {
+      "id": "z1-cover",
+      "archetype": "cover-cinematic",
+      "vertical_title": true,
+      "bleed_mark": "白",
+      "eyebrow": "ORIENTAL POETICS // 宋人营造考",
+      "title": "计白当黑\n**安顿天地山林**",
+      "title_morph_id": "zen-title",
+      "subtitle": "不求雕梁画栋之繁复，唯取宋代马远折枝一角之疏朗骨相。以素宣粉墙为纸，以苍崖丹叶为墨，重构当代中国人的精神栖居。",
+      "media": {
+        "src": "art://oriental-ink-cliff",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg",
+        "caption": "卷首图 · 马远一角构图宣纸宿墨丹叶意境"
+      }
+    },
+    {
+      "id": "z2-statement",
+      "archetype": "statement-impact",
+      "transition": "morph",
+      "bleed_mark": "境",
+      "eyebrow": "卷壹 // 留白之哲学",
+      "title": "西方建筑向天空争夺高度，而东方园林向内心**退让出留白的深度**。",
+      "title_morph_id": "zen-title",
+      "subtitle": "留白并非空无一物，而是特意为四时风声、晨昏日影与居者思绪预留的容器。",
+      "items": [
+        {
+          "title": "疏可走马",
+          "body": "大面积澄明水院与素白宣墙涤荡视觉噪杂，令都市焦灼心神瞬时沉静。"
+        },
+        {
+          "title": "密不透风",
+          "body": "屋角一株横斜红叶、数块斧劈黑山石精妙咬合，于极简处见无穷生机。"
+        },
+        {
+          "title": "隔而不绝",
+          "body": "以细密竹帘、漏窗与晨雾取代生硬实墙，营造含蓄深远的空间余韵。"
+        }
+      ]
+    },
+    {
+      "id": "z3-split",
+      "archetype": "split-media-50",
+      "transition": "portal",
+      "bleed_mark": "观",
+      "eyebrow": "卷贰 // 步移景异三法",
+      "title": "无心画框：以建筑之檐，**裁取流动山水长卷**",
+      "subtitle": "将计成《园冶》造园法则转译为极简现代框景语言。",
+      "media": {
+        "src": "art://oriental-water-pavilion",
+        "camera_mode": "portal-right",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "抑景藏幽 · 三折汀步",
+          "body": "入口设素面影壁障目，经三折青石水上汀步转折，百平镜面寒潭方才豁然入怀。"
+        },
+        {
+          "title": "低窗纳水 · 卧游听雨",
+          "body": "茶室正席舍弃满幅落地窗，仅于离地四十公分处开横长低窗，专取水面涟漪与修竹根节。"
+        },
+        {
+          "title": "镜潭借天 · 云影徘徊",
+          "body": "院心铺设深墨色黑山石静水盘，将天际流云、飞鸟与晚霞尽数收纳于方寸院心。"
+        }
+      ]
+    },
+    {
+      "id": "z4-metric",
+      "archetype": "hero-metric",
+      "transition": "morph",
+      "bleed_mark": "寂",
+      "eyebrow": "卷叁 // 空间尺度与留白配比",
+      "title": "三分匠作，七分天成：**克制到极致的院落留白率**",
+      "media": {
+        "src": "art://oriental-ink-cliff",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "hero_metric": {
+        "value": "72",
+        "unit": "%",
+        "delta": "SONG DYNASTY MINIMALIST VOID RATIO",
+        "label": "全院水面、素墙与天空无遮挡留白面积占比",
+        "description": "严苛控制建筑实体占地不超三成，让风道、天光与水汽在院落中自由吐纳呼吸。"
+      },
+      "overlap_note": {
+        "title": "0 金属钉 · 古法碳化杉木榫卯",
+        "body": "沿袭宋《营造法式》燕尾直榫形制，历经江南梅雨寒暑而严丝合缝，散发草木沉香。",
+        "position": "bottom-right",
+        "morph_id": "zen-overlap"
+      }
+    },
+    {
+      "id": "z5-timeline",
+      "archetype": "process-timeline",
+      "eyebrow": "卷肆 // 十二时辰光影谱",
+      "title": "顺时而居：院落一日四时的**光影情绪节律**",
+      "items": [
+        {
+          "tag": "卯时 · 06:00",
+          "title": "晨雾竹露",
+          "metric": "东曦初透",
+          "body": "微凉晨光穿过东侧修竹格栅，在宣浆素墙投下摇曳生姿的淡淡水墨斜影。"
+        },
+        {
+          "tag": "午时 · 12:00",
+          "title": "深檐庇荫",
+          "metric": "挑檐 1.8m",
+          "accent": true,
+          "body": "深远碳化木挑檐精准遮蔽盛夏正午烈日，室内唯有水面反射的清凉波光轻晃。"
+        },
+        {
+          "tag": "酉时 · 18:00",
+          "title": "丹叶映水",
+          "metric": "朱砂暮色",
+          "body": "夕照余晖点燃崖畔一枝红叶，整座静谧水院化作一方微醺的宋代朱砂砚池。"
+        },
+        {
+          "tag": "亥时 · 21:30",
+          "title": "石灯听雨",
+          "metric": "月白微光",
+          "body": "贴地青石灯笼泛起温润烛色，仅照亮脚下青苔汀步，将璀璨星河归还夜空。"
+        }
+      ]
+    },
+    {
+      "id": "z6-quote",
+      "archetype": "quote-manifesto",
+      "transition": "portal",
+      "bleed_mark": "道",
+      "media": {
+        "src": "art://oriental-water-pavilion",
+        "camera_mode": "vertical-slit",
+        "morph_id": "cinema-bg"
+      },
+      "quote": {
+        "text": "虽由人作，**宛自天开**。造物之至高境界，终究是让人忘却一切设计伎俩，只觉万物本该如此静美生长。",
+        "author": "计成《园冶》",
+        "role": "明代造园宗师 · 东方空间美学圭臬"
+      }
+    },
+    {
+      "id": "z7-close",
+      "archetype": "closing-beacon",
+      "transition": "morph",
+      "bleed_mark": "雅",
+      "eyebrow": "YUNLIN ATELIER // 苏州 · 杭州 · 京都",
+      "title": "心有丘壑，**眉目山河**。",
+      "title_morph_id": "zen-title",
+      "subtitle": "云林造物《当代东方院落营造图录》秋日水院雅集现已启幕。",
+      "media": {
+        "src": "art://oriental-water-pavilion",
+        "camera_mode": "full-bleed-right-subject",
+        "morph_id": "cinema-bg"
+      },
+      "items": [
+        {
+          "title": "姑苏本院",
+          "tag": "姑苏本院",
+          "body": "苏州平江历史街区竹隐巷 12 号"
+        },
+        {
+          "title": "雅集预约",
+          "tag": "雅集预约",
+          "body": "visit@yunlin-craft.cn"
+        }
+      ]
+    }
+  ]
+}
