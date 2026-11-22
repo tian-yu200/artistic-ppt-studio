@@ -15,6 +15,10 @@
    - **Layer 4（100% 原生可编辑文本与顶刊三线表）**：升级现代中文字体栈（华文中宋 / 等线 / 楷体 / 微软雅黑 UI），支持正统中式竖排 (`eaVert`)。
 
 ---
+## 支持作者
+如果这个项目帮到了你，可以在爱发电支持我：[Artistic-PPT 视觉工坊 · afdian.com/a/artisticppt](https://afdian.com/a/artisticppt) —— 真原生全可编辑 PPT：Excel 图表、OMML 公式，竞赛答辩。
+
+---
 
 ## 核心资产与质检体系
 
